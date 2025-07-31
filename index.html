@@ -3,325 +3,418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YourCompany - Digital Presence Innovators</title>
+    <title>Our Services - 3D Showcase</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Three.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- OrbitControls for camera interaction -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Lighter slate background */
-            color: #1a202c; /* Darker text for contrast */
-            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
-        .section-heading {
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px; /* Increased padding */
-            margin-bottom: 5rem; /* More space below heading */
-        }
-        .section-heading::after {
-            content: '';
+        #webgl-container {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
-            width: 100px; /* Wider underline */
-            height: 6px; /* Thicker underline */
-            background-color: #6366f1; /* Indigo 500 */
-            border-radius: 9999px;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.5); /* More prominent shadow for underline */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1; /* Place behind content */
+            overflow: hidden;
         }
-        /* Custom animation for section entry */
-        .fade-in-up {
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 1rem;
+            position: relative;
+            z-index: 1; /* Ensure content is above 3D scene */
+            color: #e2e8f0; /* Light text color */
+            background-image: radial-gradient(at center center, #2d3748 0%, #1a202c 100%); /* Subtle gradient background */
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #1a202c; /* Dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #cbd5e0;
+            font-size: 1.5rem;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .loading-screen.hidden {
             opacity: 0;
-            transform: translateY(40px); /* Increased translateY for more noticeable effect */
-            transition: opacity 1s ease-out, transform 1s ease-out; /* Slower, smoother transition */
+            pointer-events: none;
         }
-        .fade-in-up.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        /* Custom scrollbar for aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        /* Gradient text for hero section */
-        .gradient-text {
-            background: linear-gradient(45deg, #a78bfa, #8b5cf6, #6366f1);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: gradientShift 4s ease infinite alternate; /* Slower animation */
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.2); /* Subtle text shadow */
+        ::-webkit-scrollbar-track {
+            background: #2d3748; /* Darker track */
         }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568; /* Slightly lighter thumb */
+            border-radius: 4px;
         }
-        /* Card hover effect */
-        .card-hover-effect {
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother cubic-bezier transition */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* Even lighter on hover */
         }
-        .card-hover-effect:hover {
-            transform: translateY(-12px) scale(1.03); /* More pronounced lift and scale */
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+
+        /* Keyframe Animations */
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 5px rgba(66, 153, 225, 0.7), 0 0 10px rgba(128, 90, 213, 0.7); }
+            50% { text-shadow: 0 0 15px rgba(66, 153, 225, 1), 0 0 25px rgba(128, 90, 213, 1); }
         }
-        /* Hero section specific background pattern */
-        .hero-pattern {
-            background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.08\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zm0 30V0h-2v4h-4v2h4v4h2V6h4V4h-4zm0 30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zm0-30V0H4v4H0v2h4v4h2V6h4V4H6zm0 30V0H4v4H0v2h4v4h2V6h4V4H6zm0 30V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+
+        .animate-pulse-glow {
+            animation: pulse-glow 3s infinite alternate;
         }
-        /* Telegram button hover effect */
-        .telegram-button-hover:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.4); /* Blue shadow */
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .button-glow {
+            box-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .button-glow:hover {
+            box-shadow: 0 0 20px rgba(66, 153, 225, 0.8), 0 0 30px rgba(128, 90, 213, 0.8);
+            transform: translateY(-2px) scale(1.02);
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="bg-gray-900 text-gray-200">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <p>Loading 3D experience...</p>
+    </div>
+
+    <!-- 3D Canvas Container -->
+    <div id="webgl-container"></div>
 
     <!-- Navigation Bar -->
-    <nav class="bg-white shadow-2xl py-4 fixed w-full z-50">
-        <div class="container mx-auto px-8 flex justify-between items-center">
-            <a href="#home" class="text-3xl md:text-4xl font-black text-indigo-800 tracking-wider transform hover:scale-105 transition-transform duration-300">YourCompany</a>
-            <div class="hidden md:flex space-x-10 lg:space-x-12">
-                <a href="#home" class="text-gray-700 hover:text-indigo-600 font-semibold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1">Home</a>
-                <a href="#services" class="text-gray-700 hover:text-indigo-600 font-semibold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1">Services</a>
-                <a href="#why-us" class="text-gray-700 hover:text-indigo-600 font-semibold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1">Why Choose Us</a>
-                <a href="#team" class="text-gray-700 hover:text-indigo-600 font-semibold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1">Team</a>
-                <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-semibold text-lg transition duration-300 ease-in-out transform hover:-translate-y-1">Contact</a>
-            </div>
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-button" class="md:hidden text-gray-700 hover:text-indigo-600 focus:outline-none p-2 rounded-md transition duration-300 hover:bg-gray-100">
-                <svg class="w-9 h-9" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-8 border-t border-gray-100">
-            <div class="flex flex-col items-center space-y-6">
-                <a href="#home" class="block text-gray-800 hover:text-indigo-600 font-medium text-xl py-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Home</a>
-                <a href="#services" class="block text-gray-800 hover:text-indigo-600 font-medium text-xl py-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Services</a>
-                <a href="#why-us" class="block text-gray-800 hover:text-indigo-600 font-medium text-xl py-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Why Choose Us</a>
-                <a href="#team" class="block text-gray-800 hover:text-indigo-600 font-medium text-xl py-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Team</a>
-                <a href="#contact" class="block text-gray-800 hover:text-indigo-600 font-medium text-xl py-2" onclick="document.getElementById('mobile-menu').classList.add('hidden')">Contact</a>
+    <nav class="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-70 backdrop-blur-lg p-4 z-50 shadow-xl border-b border-gray-700">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition duration-300 transform hover:scale-105">Our Agency</a>
+            <div class="space-x-4">
+                <a href="#services" class="text-gray-300 hover:text-blue-400 transition duration-300 rounded-md px-3 py-2 border border-transparent hover:border-blue-400">Services</a>
+                <a href="#team" class="text-gray-300 hover:text-blue-400 transition duration-300 rounded-md px-3 py-2 border border-transparent hover:border-blue-400">Team</a>
+                <a href="#contact" class="text-gray-300 hover:text-blue-400 transition duration-300 rounded-md px-3 py-2 border border-transparent hover:border-blue-400">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="bg-gradient-to-br from-indigo-700 to-purple-800 text-white py-36 md:py-56 rounded-b-[4rem] shadow-2xl overflow-hidden relative hero-pattern">
-        <div class="container mx-auto px-8 text-center relative z-10">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-8 animate-fade-in-up">
-                <span class="gradient-text">Ignite Your Digital Future</span>
+    <!-- Home Section -->
+    <section id="home" class="section text-center relative">
+        <div class="bg-gray-800 bg-opacity-70 rounded-xl p-8 shadow-2xl max-w-3xl mx-auto transform transition-all duration-500 hover:scale-105 border border-blue-600">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 animate-pulse-glow">
+                Innovate. Create. Elevate.
             </h1>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-14 max-w-5xl mx-auto opacity-95 animate-fade-in-up delay-200 font-light">
-                We are the architects of exceptional online experiences, blending innovative web development with strategic social media mastery to propel your brand forward.
+            <p class="text-xl md:text-2xl mb-8 text-gray-300 leading-relaxed">
+                Transforming ideas into digital realities with cutting-edge web development and impactful social media strategies.
             </p>
-            <a href="#services" class="inline-block bg-white text-indigo-700 hover:bg-indigo-100 px-14 py-6 rounded-full text-xl md:text-2xl font-bold shadow-2xl transition duration-300 ease-in-out transform hover:scale-105 animate-fade-in-up delay-400 border-b-6 border-indigo-900 hover:border-indigo-700">
-                Explore Our Solutions
-            </a>
-        </div>
-    </section>
-
-    <!-- Our Services Section -->
-    <section id="services" class="py-28 md:py-40 bg-white">
-        <div class="container mx-auto px-8">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 section-heading mx-auto text-gray-900">Our Core Services</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
-                <!-- Social Media Services -->
-                <div class="bg-gray-50 p-10 lg:p-14 rounded-[2rem] shadow-xl card-hover-effect fade-in-up">
-                    <div class="flex items-start mb-8">
-                        <div class="bg-indigo-100 text-indigo-600 p-6 rounded-full mr-6 shadow-md flex-shrink-0">
-                            <svg class="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2m2-2v-1a3 3 0 013-3h2.185a3 3 0 011.892.686M17 20H17m0 0a3 3 0 01-3-3V9a3 3 0 013-3h2m-3 10v4m-4-10v4m-1-10v4m-1-4h.01M7 13h2"></path></svg>
-                        </div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Social Media Mastery</h3>
-                    </div>
-                    <p class="text-gray-700 mb-8 leading-relaxed text-lg">
-                        Elevate your brand's voice and reach. We craft dynamic social media strategies, create captivating content, and manage your channels to build a thriving, engaged community around your business. Experience genuine connection and measurable growth.
-                    </p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-3 text-base pl-2">
-                        <li>Strategic Content Planning & Editorial Calendar</li>
-                        <li>Engaging Community Management & Interaction</li>
-                        <li>Targeted Paid Social Advertising Campaigns</li>
-                        <li>In-depth Performance Analytics & ROI Reporting</li>
-                        <li>Influencer Collaboration & Partnership Management</li>
-                    </ul>
-                </div>
-
-                <!-- Web Development Services -->
-                <div class="bg-gray-50 p-10 lg:p-14 rounded-[2rem] shadow-xl card-hover-effect fade-in-up delay-100">
-                    <div class="flex items-start mb-8">
-                        <div class="bg-purple-100 text-purple-600 p-6 rounded-full mr-6 shadow-md flex-shrink-0">
-                            <svg class="w-11 h-11" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        </div>
-                        <h3 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Cutting-Edge Web Solutions</h3>
-                    </div>
-                    <p class="text-gray-700 mb-8 leading-relaxed text-lg">
-                        Build your digital cornerstone with bespoke web solutions. From stunning, responsive corporate sites to powerful, secure e-commerce platforms, we engineer online experiences that are not just visually appealing but also highly functional and optimized for peak performance.
-                    </p>
-                    <ul class="list-disc list-inside text-gray-600 space-y-3 text-base pl-2">
-                        <li>Custom Web Application & Platform Development</li>
-                        <li>Robust E-commerce Solutions & Integrations</li>
-                        <li>Intuitive UI/UX Design & Responsive Layouts</li>
-                        <li>Ongoing Website Maintenance, Security & Support</li>
-                        <li>Advanced SEO Optimization & Performance Tuning</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us Section -->
-    <section id="why-us" class="py-28 md:py-40 bg-gray-100">
-        <div class="container mx-auto px-8">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 section-heading mx-auto text-gray-900">Why Partner With Us?</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
-                <!-- Feature 1 -->
-                <div class="bg-white p-10 rounded-[2rem] shadow-xl text-center card-hover-effect fade-in-up">
-                    <div class="text-indigo-600 mb-8 mx-auto">
-                        <svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m15.364 4.364l-.707-.707M6.343 17.657l-.707.707M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Strategic Vision</h3>
-                    <p class="text-gray-700 leading-relaxed text-base">
-                        We don't just execute; we innovate. Every project begins with a deep dive into your unique business goals, ensuring our solutions are precisely aligned for maximum impact and long-term success.
-                    </p>
-                </div>
-
-                <!-- Feature 2 -->
-                <div class="bg-white p-10 rounded-[2rem] shadow-xl text-center card-hover-effect fade-in-up delay-100">
-                    <div class="text-purple-600 mb-8 mx-auto">
-                        <svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L3 12l5.714-2.143L11 3z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Unrivaled Expertise</h3>
-                    <p class="text-gray-700 leading-relaxed text-base">
-                        Our team comprises highly skilled professionals in web development, cutting-edge design, and dynamic digital marketing. We bring a wealth of experience, creativity, and technical prowess to every challenge.
-                    </p>
-                </div>
-
-                <!-- Feature 3 -->
-                <div class="bg-white p-10 rounded-[2rem] shadow-xl text-center card-hover-effect fade-in-up delay-200">
-                    <div class="text-pink-600 mb-8 mx-auto">
-                        <svg class="w-24 h-24 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Tangible Results</h3>
-                    <p class="text-gray-700 leading-relaxed text-base">
-                        We are relentlessly committed to delivering measurable outcomes. Our focus is on crafting solutions that not only look spectacular but also perform exceptionally, driving real business growth and superior ROI.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Details Section -->
-    <section id="team" class="py-28 md:py-40 bg-white">
-        <div class="container mx-auto px-8">
-            <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-16 section-heading mx-auto text-gray-900">Meet Our Exceptional Team</h2>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-20">
-                <!-- Team Member 1 -->
-                <div class="bg-gray-50 rounded-[2rem] shadow-xl p-10 text-center card-hover-effect fade-in-up">
-                    <img src="https://placehold.co/220x220/6366f1/ffffff?text=JOHN+DOE" alt="Team Member John Doe" class="w-52 h-52 rounded-full mx-auto mb-8 object-cover border-6 border-indigo-400 shadow-lg">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">John Doe</h3>
-                    <p class="text-indigo-700 font-semibold mb-5 text-lg">Lead Web Developer</p>
-                    <p class="text-gray-700 text-base leading-relaxed">
-                        John is a visionary full-stack developer with over a decade of experience, specializing in crafting robust and scalable web applications. His expertise ensures cutting-edge solutions.
-                    </p>
-                </div>
-
-                <!-- Team Member 2 -->
-                <div class="bg-gray-50 rounded-[2rem] shadow-xl p-10 text-center card-hover-effect fade-in-up delay-100">
-                    <img src="https://placehold.co/220x220/a855f7/ffffff?text=JANE+SMITH" alt="Team Member Jane Smith" class="w-52 h-52 rounded-full mx-auto mb-8 object-cover border-6 border-purple-400 shadow-lg">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Jane Smith</h3>
-                    <p class="text-purple-700 font-semibold mb-5 text-lg">Social Media Strategist</p>
-                    <p class="text-gray-700 text-base leading-relaxed">
-                        Jane is a dynamic social media expert, renowned for her ability to create viral content and cultivate vibrant online communities that significantly boost brand engagement.
-                    </p>
-                </div>
-
-                <!-- Team Member 3 -->
-                <div class="bg-gray-50 rounded-[2rem] shadow-xl p-10 text-center card-hover-effect fade-in-up delay-200">
-                    <img src="https://placehold.co/220x220/ec4899/ffffff?text=ALEX+MILLER" alt="Team Member Alex Miller" class="w-52 h-52 rounded-full mx-auto mb-8 object-cover border-6 border-pink-400 shadow-lg">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-3">Alex Miller</h3>
-                    <p class="text-pink-700 font-semibold mb-5 text-lg">Senior UI/UX Designer</p>
-                    <p class="text-gray-700 text-base leading-relaxed">
-                        Alex is a master of user experience, meticulously designing interfaces that are not only aesthetically pleasing but also intuitively functional, ensuring seamless user journeys.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-28 md:py-40 bg-gray-100">
-        <div class="container mx-auto px-8 text-center">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-16 section-heading mx-auto text-gray-900">Connect With Us</h2>
-            <p class="text-xl text-gray-700 text-center mb-14 max-w-4xl mx-auto leading-relaxed">
-                Join our vibrant community on Telegram for real-time updates, direct support, and exclusive insights. We're always here to connect!
-            </p>
-
-            <div class="max-w-md mx-auto bg-white p-10 rounded-[2rem] shadow-2xl fade-in-up">
-                <a href="https://t.me/abcdefghijklmnopqrstuvwxyz" target="_blank" class="inline-flex items-center justify-center w-full bg-blue-600 text-white px-12 py-6 rounded-full text-xl md:text-2xl font-bold shadow-lg transition duration-300 ease-in-out telegram-button-hover focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-offset-2 border-b-6 border-blue-800 hover:border-blue-600">
-                    <svg class="w-10 h-10 mr-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.36 5.66c-.63-.42-1.4-.66-2.22-.66H7.86c-1.85 0-3.36 1.51-3.36 3.36v7.32c0 1.85 1.51 3.36 3.36 3.36h7.32c.82 0 1.59-.24 2.22-.66l-5.06-4.99c-.19-.19-.19-.51 0-.7l.7-.7c.19-.19.51-.19.7 0l4.99 5.06c.42-.63.66-1.4.66-2.22V9.02c0-1.85-1.51-3.36-3.36-3.36zM12 17.5c-3.03 0-5.5-2.47-5.5-5.5s2.47-5.5 5.5-5.5 5.5 2.47 5.5 5.5-2.47 5.5-5.5 5.5zm0-9c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5 3.5-1.57 3.5-3.5-1.57-3.5-3.5-3.5z"/></svg>
-                    Join us on Telegram
+            <div class="space-x-4">
+                <a href="#services" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 button-glow">
+                    Explore Services
+                </a>
+                <a href="#contact" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 button-glow">
+                    Get in Touch
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-14 rounded-t-[4rem] shadow-inner">
-        <div class="container mx-auto px-8 text-center text-gray-400">
-            <p class="mb-8 text-xl">&copy; 2025 YourCompany. All rights reserved.</p>
-            <div class="flex justify-center space-x-12 text-base">
-                <a href="#" class="hover:text-white transition duration-300 transform hover:scale-105">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition duration-300 transform hover:scale-105">Terms of Service</a>
-                <a href="#" class="hover:text-white transition duration-300 transform hover:scale-105">Sitemap</a>
-            </div>
-            <div class="mt-12">
-                <p class="text-lg mb-5">Follow our journey:</p>
-                <div class="flex justify-center space-x-10 mt-3">
-                    <!-- Social media icons with hover effects -->
-                    <a href="#" class="text-gray-400 hover:text-blue-500 transition duration-300 transform hover:scale-125">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.65H8.083v-2.625h2.355V9.76c0-2.322 1.41-3.592 3.49-3.592 1.004 0 1.867.074 2.12.107v2.44h-1.44c-1.134 0-1.354.538-1.354 1.322v1.73H17.5l-.27 2.625h-2.18v7.229C18.343 21.128 22 16.991 22 12c0-5.523-4.477-10-10-10z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-sky-400 transition duration-300 transform hover:scale-125">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.34-1.6.57-2.46.69.88-.53 1.56-1.37 1.88-2.37-.83.49-1.75.85-2.73 1.04C18.3 4.6 17.22 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.53 7.6 3.6 5.25c-.38.65-.59 1.4-.59 2.22 0 1.49.75 2.81 1.88 3.59-.69-.02-1.34-.21-1.91-.53v.05c0 2.07 1.47 3.8 3.42 4.19-.36.1-.74.15-1.13.15-.28 0-.55-.03-.81-.08.54 1.7 2.11 2.93 3.97 2.96C14.06 19.16 11.2 20 8 20c-.53 0-1.05-.03-1.57-.09C10.74 21.16 14.44 22 18.5 22c4.58 0 7.09-3.79 7.09-7.09 0-.23-.01-.46-.02-.69.49-.35.91-.77 1.24-1.26z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-pink-500 transition duration-300 transform hover:scale-125">
-                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.772 1.667 4.92 4.919.058 1.265.069 1.645.069 4.849 0 3.204-.012 3.584-.07 4.85-1.148 3.252-1.667 4.772-4.919 4.92-1.265.058-1.645.069-4.849.069-3.204 0-3.584-.012-4.85-.07-3.252-1.148-4.772-1.667-4.92-4.919-.058-1.265-.069-1.645-.069-4.849 0-3.204.012-3.584.07-4.85 1.148-3.252 1.667-4.772 4.919-4.92 1.265-.058 1.645-.069 4.849-.069zM12 4.323c-2.924 0-3.284.012-4.44.06-2.52.114-3.68 1.274-3.794 3.794-.048 1.156-.06 1.516-.06 4.44 0 2.924.012 3.284.06 4.44 1.114 2.52 1.274 3.68 3.794 3.794 1.156.048 1.516.06 4.44.06 2.924 0 3.284-.012 4.44-.06 2.52-1.114 3.68-1.274 3.794-3.794-.048-1.156-.06-1.516-.06-4.44 0-2.924-.012-3.284-.06-4.44-1.114-2.52-1.274-3.68-3.794-3.794-1.156-.048-1.516-.06-4.44-.06zm0 2.827c-2.61 0-4.73 2.12-4.73 4.73s2.12 4.73 4.73 4.73 4.73-2.12 4.73-4.73-2.12-4.73-4.73-4.73zm0 7.73c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3zm6.47-7.73c-.552 0-1-.448-1-1s.448-1 1-1 1 .448 1 1-.448 1-1 1z"/></svg>
-                    </a>
+    <!-- Services Section -->
+    <section id="services" class="section bg-gray-800 bg-opacity-90">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-blue-400 text-center animate-pulse-glow">Our Core Services</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+            <!-- Social Media Services Card -->
+            <div class="bg-gray-700 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-500 button-glow">
+                <div class="flex items-center mb-4">
+                    <svg class="w-10 h-10 text-blue-300 mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM5.3 8.354a.75.75 0 00-1.06 1.06l3.5 3.5a.75.75 0 001.06 0l6.5-6.5a.75.75 0 00-1.06-1.06L8.75 11.44L5.3 8.354z" clip-rule="evenodd"></path></svg>
+                    <h3 class="text-3xl font-semibold text-blue-300">Social Media Management</h3>
                 </div>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    We craft compelling social media strategies, create engaging content, manage ad campaigns, and foster vibrant communities to boost your brand's online presence and engagement.
+                </p>
+                <ul class="list-disc list-inside text-gray-400 space-y-2">
+                    <li>Strategic Content Planning</li>
+                    <li>Community Engagement</li>
+                    <li>Paid Social Advertising</li>
+                    <li>Performance Analytics & Reporting</li>
+                </ul>
             </div>
+
+            <!-- Web Development Services Card -->
+            <div class="bg-gray-700 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-purple-500 button-glow">
+                <div class="flex items-center mb-4">
+                    <svg class="w-10 h-10 text-purple-300 mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                    <h3 class="text-3xl font-semibold text-purple-300">Cutting-Edge Web Development</h3>
+                </div>
+                <p class="text-gray-300 mb-6 leading-relaxed">
+                    From bespoke websites to robust e-commerce platforms, we build responsive, high-performance, and scalable web solutions tailored to your unique business needs.
+                </p>
+                <ul class="list-disc list-inside text-gray-400 space-y-2">
+                    <li>Custom Website Design & Development</li>
+                    <li>E-commerce Solutions (Shopify, WooCommerce)</li>
+                    <li>Responsive & Mobile-First Design</li>
+                    <li>CMS Integration (WordPress, headless CMS)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section bg-gray-900 bg-opacity-90">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-green-400 text-center animate-pulse-glow">Meet Our Talented Team</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+            <!-- Team Member 1 -->
+            <div class="bg-gray-800 rounded-xl p-6 shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-500 button-glow">
+                <img src="https://placehold.co/150x150/4ade80/0f172a?text=Jane+Doe" alt="Jane Doe" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-400">
+                <h3 class="text-2xl font-semibold text-gray-100">Jane Doe</h3>
+                <p class="text-green-300 text-lg mb-2">Lead Web Developer</p>
+                <p class="text-gray-400 text-sm">Passionate about crafting elegant and efficient code, bringing complex designs to life with precision.</p>
+            </div>
+            <!-- Team Member 2 -->
+            <div class="bg-gray-800 rounded-xl p-6 shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-500 button-glow">
+                <img src="https://placehold.co/150x150/4ade80/0f172a?text=John+Smith" alt="John Smith" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-400">
+                <h3 class="text-2xl font-semibold text-gray-100">John Smith</h3>
+                <p class="text-green-300 text-lg mb-2">Social Media Strategist</p>
+                <p class="text-gray-400 text-sm">Expert in building engaging online communities and driving brand growth through innovative campaigns.</p>
+            </div>
+            <!-- Team Member 3 -->
+            <div class="bg-gray-800 rounded-xl p-6 shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-500 button-glow">
+                <img src="https://placehold.co/150x150/4ade80/0f172a?text=Emily+Clark" alt="Emily Clark" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-400">
+                <h3 class="text-2xl font-semibold text-gray-100">Emily Clark</h3>
+                <p class="text-green-300 text-lg mb-2">UI/UX Designer</p>
+                <p class="text-gray-400 text-sm">Dedicated to creating intuitive and visually stunning user experiences that delight and convert.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section - Now Telegram Connect -->
+    <section id="contact" class="section bg-gray-800 bg-opacity-90">
+        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-yellow-400 text-center animate-pulse-glow">Connect With Us!</h2>
+        <div class="bg-gray-700 rounded-xl p-8 shadow-xl max-w-2xl mx-auto w-full border border-yellow-500 button-glow text-center">
+            <p class="text-gray-300 mb-6 text-xl">
+                Have questions or ready to start a project? Connect with us directly on Telegram!
+            </p>
+            <a href="https://t.me/abdefef" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 button-glow">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.3 7.8L9.8 14.3c-.2.2-.5.3-.8.3-.3 0-.6-.1-.8-.3-.4-.4-.4-1 0-1.4l6.5-6.5c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4zM7.7 13.5l1.4 1.4c.4.4 1 .4 1.4 0l6.5-6.5c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-6.5 6.5c-.4.4-.4 1 0 1.4z"/>
+                </svg>
+                Join us on Telegram
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 bg-opacity-80 p-6 text-center text-gray-400 text-sm">
+        <p>&copy; 2025 Our Agency. All rights reserved.</p>
+        <div class="mt-2 space-x-4">
+            <a href="#" class="hover:text-blue-400 transition duration-300">Privacy Policy</a>
+            <a href="#" class="hover:text-blue-400 transition duration-300">Terms of Service</a>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
+        // Three.js Scene Setup
+        let scene, camera, renderer, controls;
+        let socialMediaGroup, webDevGroup, particles;
+        const loadingScreen = document.getElementById('loading-screen');
+        const webglContainer = document.getElementById('webgl-container');
 
-        // Intersection Observer for fade-in animation
-        const fadeInElements = document.querySelectorAll('.fade-in-up');
+        function initThreeJS() {
+            // Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1a202c); // Dark background
+            scene.fog = new THREE.Fog(0x1a202c, 20, 100); // Add fog for depth
 
-        const observerOptions = {
-            root: null, // viewport
-            rootMargin: '0px',
-            threshold: 0.1 // Trigger when 10% of the element is visible
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 0, 15);
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            webglContainer.appendChild(renderer.domElement);
+
+            // OrbitControls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true; // Smooth camera movement
+            controls.dampingFactor = 0.05;
+            controls.screenSpacePanning = false;
+            controls.minDistance = 10;
+            controls.maxDistance = 50;
+            controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below ground
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040, 2); // Soft white light
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Brighter light
+            directionalLight.position.set(5, 10, 7.5);
+            scene.add(directionalLight);
+
+            // --- Social Media Services Object (Interconnected Spheres) ---
+            socialMediaGroup = new THREE.Group();
+            // Added emissive color for a subtle glow
+            const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x63b3ed, emissive: 0x3182ce, emissiveIntensity: 0.5, metalness: 0.8, roughness: 0.2 });
+            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x4299e1, linewidth: 2 });
+
+            const numSpheres = 15; // Increased number of spheres
+            const spheres = [];
+            for (let i = 0; i < numSpheres; i++) {
+                const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), sphereMaterial);
+                sphere.position.set(
+                    (Math.random() - 0.5) * 15, // Wider spread
+                    (Math.random() - 0.5) * 15,
+                    (Math.random() - 0.5) * 15
+                );
+                socialMediaGroup.add(sphere);
+                spheres.push(sphere);
+            }
+
+            // Connect spheres with lines
+            for (let i = 0; i < numSpheres; i++) {
+                for (let j = i + 1; j < numSpheres; j++) {
+                    if (spheres[i].position.distanceTo(spheres[j].position) < 6) { // Adjusted connection distance
+                        const points = [];
+                        points.push(spheres[i].position);
+                        points.push(spheres[j].position);
+                        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                        const line = new THREE.Line(geometry, lineMaterial);
+                        socialMediaGroup.add(line);
+                    }
+                }
+            }
+            socialMediaGroup.position.set(-10, 0, 0); // Position left
+            scene.add(socialMediaGroup);
+
+            // --- Web Development Services Object (Abstract Geometric Shapes) ---
+            webDevGroup = new THREE.Group();
+            // Added emissive color for a subtle glow
+            const geoMaterial = new THREE.MeshStandardMaterial({ color: 0x9f7aea, emissive: 0x805ad5, emissiveIntensity: 0.4, metalness: 0.6, roughness: 0.4 });
+
+            // Cube
+            const cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), geoMaterial);
+            cube.position.set(0, 1.5, 0);
+            webDevGroup.add(cube);
+
+            // Dodecahedron
+            const dodecahedron = new THREE.Mesh(new THREE.DodecahedronGeometry(1.5), geoMaterial);
+            dodecahedron.position.set(2, -1.5, 1);
+            webDevGroup.add(dodecahedron);
+
+            // Torus Knot
+            const torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(1, 0.3, 100, 16), geoMaterial);
+            torusKnot.position.set(-2, -1, -1);
+            webDevGroup.add(torusKnot);
+
+            webDevGroup.position.set(10, 0, 0); // Position right
+            scene.add(webDevGroup);
+
+            // --- Background Particles ---
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = 3000; // Increased particle count
+            const posArray = new Float32Array(particleCount * 3);
+            const velArray = new Float32Array(particleCount * 3); // Velocity array for movement
+
+            for (let i = 0; i < particleCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 200; // Spread particles over a large area
+                velArray[i] = (Math.random() - 0.5) * 0.005; // Small random velocity
+            }
+
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particleGeometry.setAttribute('velocity', new THREE.BufferAttribute(velArray, 3)); // Add velocity attribute
+
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0xcccccc,
+                size: 0.1,
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                sizeAttenuation: true
+            });
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+
+            // Hide loading screen once Three.js is initialized
+            loadingScreen.classList.add('hidden');
+        }
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Animate social media group
+            socialMediaGroup.rotation.y += 0.005;
+            socialMediaGroup.rotation.x += 0.002;
+
+            // Animate web development group
+            webDevGroup.rotation.y -= 0.007;
+            webDevGroup.rotation.z += 0.003;
+
+            // Animate particles
+            const positions = particles.geometry.attributes.position.array;
+            const velocities = particles.geometry.attributes.velocity.array;
+
+            for (let i = 0; i < positions.length; i += 3) {
+                positions[i] += velocities[i];
+                positions[i + 1] += velocities[i + 1];
+                positions[i + 2] += velocities[i + 2];
+
+                // Wrap particles if they go too far
+                if (positions[i] > 100 || positions[i] < -100) velocities[i] *= -1;
+                if (positions[i + 1] > 100 || positions[i + 1] < -100) velocities[i + 1] *= -1;
+                if (positions[i + 2] > 100 || positions[i + 2] < -100) velocities[i + 2] *= -1;
+            }
+            particles.geometry.attributes.position.needsUpdate = true; // Important for updating particle positions
+
+            controls.update(); // Only required if controls.enableDamping or controls.autoRotate are set to true
+            renderer.render(scene, camera);
+        }
+
+        // Handle Window Resizing
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        window.addEventListener('resize', onWindowResize);
+
+        // Initialize Three.js on window load
+        window.onload = function () {
+            initThreeJS();
+            animate();
         };
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Stop observing once visible
-                }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
             });
-        }, observerOptions);
-
-        fadeInElements.forEach(element => {
-            observer.observe(element);
         });
     </script>
-
 </body>
 </html>

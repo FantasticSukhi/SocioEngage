@@ -3,416 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - 3D Showcase</title>
+    <title>Our Services - 3D Experience</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Three.js CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- OrbitControls for camera interaction -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- OrbitControls for camera interaction (changed to r125 version for compatibility) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/examples/js/controls/OrbitControls.js"></script>
     <style>
+        /* Custom CSS for body and canvas */
         body {
             font-family: 'Inter', sans-serif;
             overflow-x: hidden; /* Prevent horizontal scroll */
+            margin: 0;
+            padding: 0;
         }
-        #webgl-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: -1; /* Place behind content */
-            overflow: hidden;
-        }
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 4rem 1rem;
-            position: relative;
-            z-index: 1; /* Ensure content is above 3D scene */
-            color: #e2e8f0; /* Light text color */
-            background-image: radial-gradient(at center center, #2d3748 0%, #1a202c 100%); /* Subtle gradient background */
-        }
-        .loading-screen {
+        canvas {
+            display: block;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #1a202c; /* Dark background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #cbd5e0;
-            font-size: 1.5rem;
-            z-index: 9999;
-            transition: opacity 0.5s ease-out;
-            animation: fadeIn 1s ease-in-out;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Place canvas behind content */
         }
-        .loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
+        .content-section {
+            background-color: rgba(17, 24, 39, 0.85); /* Darker background with transparency */
+            border-radius: 1.5rem; /* Rounded corners */
+            padding: 2.5rem; /* Increased padding */
+            margin: 2rem auto; /* Center with margin */
+            max-width: 90%; /* Max width for content */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+            backdrop-filter: blur(10px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(10px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
         }
-        /* Custom scrollbar for aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #2d3748; /* Darker track */
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #4a5568; /* Slightly lighter thumb */
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #64748b; /* Even lighter on hover */
-        }
-
-        /* Keyframe Animations */
-        @keyframes pulse-glow {
-            0%, 100% { text-shadow: 0 0 5px rgba(66, 153, 225, 0.7), 0 0 10px rgba(128, 90, 213, 0.7); }
-            50% { text-shadow: 0 0 15px rgba(66, 153, 225, 1), 0 0 25px rgba(128, 90, 213, 1); }
-        }
-
-        .animate-pulse-glow {
-            animation: pulse-glow 3s infinite alternate;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .button-glow {
-            box-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .button-glow:hover {
-            box-shadow: 0 0 20px rgba(66, 153, 225, 0.8), 0 0 30px rgba(128, 90, 213, 0.8);
-            transform: translateY(-2px) scale(1.02);
+        /* Gradient text for headings */
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-200">
+<body class="text-gray-100 min-h-screen flex flex-col items-center justify-start relative">
 
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="loading-screen">
-        <p>Loading 3D experience...</p>
-    </div>
-
-    <!-- 3D Canvas Container -->
-    <div id="webgl-container"></div>
+    <!-- 3D Canvas will be injected here by Three.js -->
+    <canvas id="three-canvas"></canvas>
 
     <!-- Navigation Bar -->
-    <nav class="fixed top-0 left-0 right-0 bg-gray-900 bg-opacity-70 backdrop-blur-lg p-4 z-50 shadow-xl border-b border-gray-700">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="#home" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition duration-300 transform hover:scale-105">Our Agency</a>
-            <div class="space-x-4">
-                <a href="#services" class="text-gray-300 hover:text-blue-400 transition duration-300 rounded-md px-3 py-2 border border-transparent hover:border-blue-400">Services</a>
-                <a href="#team" class="text-gray-300 hover:text-blue-400 transition duration-300 rounded-md px-3 py-2 border border-transparent hover:border-blue-400">Team</a>
-                <a href="#contact" class="text-gray-300 hover:text-blue-400 transition duration-300 rounded-md px-3 py-2 border border-transparent hover:border-blue-400">Contact</a>
+    <nav class="w-full bg-gray-900 bg-opacity-70 backdrop-blur-md p-4 rounded-b-3xl shadow-lg fixed top-0 z-10">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="#" class="text-2xl font-bold text-white gradient-text">Our Agency</a>
+            <div class="flex space-x-6">
+                <a href="#home" class="text-gray-300 hover:text-white transition duration-300">Home</a>
+                <a href="#services" class="text-gray-300 hover:text-white transition duration-300">Services</a>
+                <a href="#team" class="text-gray-300 hover:text-white transition duration-300">Team</a>
+                <a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="section text-center relative">
-        <div class="bg-gray-800 bg-opacity-70 rounded-xl p-8 shadow-2xl max-w-3xl mx-auto transform transition-all duration-500 hover:scale-105 border border-blue-600">
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 animate-pulse-glow">
+    <!-- Main Content Sections -->
+    <main class="relative z-0 w-full mt-24 pb-8"> <!-- Added mt-24 to push content below fixed nav -->
+
+        <!-- Hero Section -->
+        <section id="home" class="content-section text-center py-20 px-6">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 gradient-text leading-tight">
                 Innovate. Create. Elevate.
             </h1>
-            <p class="text-xl md:text-2xl mb-8 text-gray-300 leading-relaxed">
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
                 Transforming ideas into digital realities with cutting-edge web development and impactful social media strategies.
             </p>
-            <div class="space-x-4">
-                <a href="#services" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 button-glow">
-                    Explore Services
+            <div class="flex justify-center space-x-4">
+                <a href="#services" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
+                    Our Services
                 </a>
-                <a href="#contact" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 button-glow">
+                <a href="#contact" class="bg-transparent border-2 border-purple-600 text-purple-300 hover:bg-purple-600 hover:text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
                     Get in Touch
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section bg-gray-800 bg-opacity-90">
-        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-blue-400 text-center animate-pulse-glow">Our Core Services</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
-            <!-- Social Media Services Card -->
-            <div class="bg-gray-700 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-500 button-glow">
-                <div class="flex items-center mb-4">
-                    <svg class="w-10 h-10 text-blue-300 mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM5.3 8.354a.75.75 0 00-1.06 1.06l3.5 3.5a.75.75 0 001.06 0l6.5-6.5a.75.75 0 00-1.06-1.06L8.75 11.44L5.3 8.354z" clip-rule="evenodd"></path></svg>
-                    <h3 class="text-3xl font-semibold text-blue-300">Social Media Management</h3>
+        <!-- Services Section -->
+        <section id="services" class="content-section py-16 px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text">Our Services</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Social Media Services -->
+                <a href="social-media-services.html" class="block w-full bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300 group">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-10 h-10 text-purple-400 mr-4 group-hover:text-purple-300 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.653-.131-1.272-.372-1.838M2 20v-2c0-.653.131-1.272.372-1.838M12 10a6 6 0 110-12 6 6 0 010 12zm0 0a6 6 0 00-6-6h-2a6 6 0 006 6h2zm-6 0a6 6 0 006 6h2a6 6 0 00-6-6h-2z"></path></svg>
+                        <h3 class="text-3xl font-semibold text-white group-hover:text-gray-100 transition duration-300">Social Media Marketing</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition duration-300">
+                        Amplify your brand's voice and reach with our comprehensive social media strategies. We help you connect with your audience, build community, and drive engagement.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-2 group-hover:text-gray-300 transition duration-300">
+                        <li>Strategic Content Creation & Curation</li>
+                        <li>Audience Engagement & Community Management</li>
+                        <li>Paid Social Media Campaigns (Ads)</li>
+                        <li>Performance Analytics & Reporting</li>
+                        <li>Influencer Collaboration</li>
+                    </ul>
+                </a>
+
+                <!-- Web Development Services -->
+                <a href="web-development-services.html" class="block w-full bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300 group">
+                    <div class="flex items-center mb-4">
+                        <svg class="w-10 h-10 text-blue-400 mr-4 group-hover:text-blue-300 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <h3 class="text-3xl font-semibold text-white group-hover:text-gray-100 transition duration-300">Web Development</h3>
+                    </div>
+                    <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition duration-300">
+                        From stunning portfolios to robust e-commerce platforms, we build responsive, secure, and high-performing websites tailored to your unique business needs.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-400 space-y-2 group-hover:text-gray-300 transition duration-300">
+                        <li>Custom Website Design & Development</li>
+                        <li>E-commerce Solutions (Shopify, WooCommerce)</li>
+                        <li>Content Management Systems (CMS)</li>
+                        <li>Responsive UI/UX Design</li>
+                        <li>Website Maintenance & Support</li>
+                    </ul>
+                </a>
+            </div>
+        </section>
+
+        <!-- Team Details Section -->
+        <section id="team" class="content-section py-16 px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text">Meet Our Team</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Team Member 1 -->
+                <div class="bg-gray-800 p-6 rounded-2xl text-center shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/150x150/6A0DAD/FFFFFF?text=Ava" alt="Team Member Ava" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-purple-500">
+                    <h3 class="text-2xl font-semibold text-white mb-2">Ava Sharma</h3>
+                    <p class="text-purple-400 text-lg mb-3">Lead Web Developer</p>
+                    <p class="text-gray-400 text-sm">
+                        With over 10 years of experience, Ava leads our web development team, specializing in scalable and secure web solutions.
+                    </p>
                 </div>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    We craft compelling social media strategies, create engaging content, manage ad campaigns, and foster vibrant communities to boost your brand's online presence and engagement.
-                </p>
-                <ul class="list-disc list-inside text-gray-400 space-y-2">
-                    <li>Strategic Content Planning</li>
-                    <li>Community Engagement</li>
-                    <li>Paid Social Advertising</li>
-                    <li>Performance Analytics & Reporting</li>
-                </ul>
-            </div>
-
-            <!-- Web Development Services Card -->
-            <div class="bg-gray-700 rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-purple-500 button-glow">
-                <div class="flex items-center mb-4">
-                    <svg class="w-10 h-10 text-purple-300 mr-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                    <h3 class="text-3xl font-semibold text-purple-300">Cutting-Edge Web Development</h3>
+                <!-- Team Member 2 -->
+                <div class="bg-gray-800 p-6 rounded-2xl text-center shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/150x150/3B82F6/FFFFFF?text=Ben" alt="Team Member Ben" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500">
+                    <h3 class="text-2xl font-semibold text-white mb-2">Ben Carter</h3>
+                    <p class="text-blue-400 text-lg mb-3">Social Media Strategist</p>
+                    <p class="text-gray-400 text-sm">
+                        Ben is our social media guru, crafting engaging campaigns that connect brands with their target audiences.
+                    </p>
                 </div>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    From bespoke websites to robust e-commerce platforms, we build responsive, high-performance, and scalable web solutions tailored to your unique business needs.
+                <!-- Team Member 3 -->
+                <div class="bg-gray-800 p-6 rounded-2xl text-center shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
+                    <img src="https://placehold.co/150x150/10B981/FFFFFF?text=Chloe" alt="Team Member Chloe" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-500">
+                    <h3 class="text-2xl font-semibold text-white mb-2">Chloe Davis</h3>
+                    <p class="text-green-400 text-lg mb-3">UI/UX Designer</p>
+                    <p class="text-gray-400 text-sm">
+                        Chloe ensures every digital product we create is not only functional but also intuitive and visually appealing.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section py-16 px-6">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text">Connect Us</h2>
+            <div class="max-w-xl mx-auto text-center">
+                <p class="text-gray-300 text-lg mb-8">
+                    हमसे जुड़ें और अपनी डिजिटल यात्रा शुरू करें!
                 </p>
-                <ul class="list-disc list-inside text-gray-400 space-y-2">
-                    <li>Custom Website Design & Development</li>
-                    <li>E-commerce Solutions (Shopify, WooCommerce)</li>
-                    <li>Responsive & Mobile-First Design</li>
-                    <li>CMS Integration (WordPress, headless CMS)</li>
-                </ul>
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
+                    <a href="https://t.me/your_telegram_account" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.364 5.636a9 9 0 100 12.728 9 9 0 000-12.728zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.707 8.293L11 14.999l-2.707-2.707a1 1 0 010-1.414l1.414-1.414a1 1 0 011.414 0l.293.293.293-.293a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414z"></path></svg>
+                        Telegram पर जुड़ें
+                    </a>
+                    <a href="https://wa.me/your_support_chat_number" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.707 8.293L11 14.999l-2.707-2.707a1 1 0 010-1.414l1.414-1.414a1 1 0 011.414 0l.293.293.293-.293a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414z"></path></svg>
+                        सपोर्ट चैट
+                    </a>
+                </div>
+                <p class="text-gray-400 text-sm mt-4">
+                    आप हमें सीधे ईमेल भी कर सकते हैं: <a href="mailto:info@youragency.com" class="text-purple-300 hover:underline">info@youragency.com</a>
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Team Section -->
-    <section id="team" class="section bg-gray-900 bg-opacity-90">
-        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-green-400 text-center animate-pulse-glow">Meet Our Talented Team</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            <!-- Team Member 1 -->
-            <div class="bg-gray-800 rounded-xl p-6 shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-500 button-glow">
-                <img src="https://placehold.co/150x150/4ade80/0f172a?text=Jane+Doe" alt="Jane Doe" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-400">
-                <h3 class="text-2xl font-semibold text-gray-100">Jane Doe</h3>
-                <p class="text-green-300 text-lg mb-2">Lead Web Developer</p>
-                <p class="text-gray-400 text-sm">Passionate about crafting elegant and efficient code, bringing complex designs to life with precision.</p>
-            </div>
-            <!-- Team Member 2 -->
-            <div class="bg-gray-800 rounded-xl p-6 shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-500 button-glow">
-                <img src="https://placehold.co/150x150/4ade80/0f172a?text=John+Smith" alt="John Smith" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-400">
-                <h3 class="text-2xl font-semibold text-gray-100">John Smith</h3>
-                <p class="text-green-300 text-lg mb-2">Social Media Strategist</p>
-                <p class="text-gray-400 text-sm">Expert in building engaging online communities and driving brand growth through innovative campaigns.</p>
-            </div>
-            <!-- Team Member 3 -->
-            <div class="bg-gray-800 rounded-xl p-6 shadow-xl text-center hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-500 button-glow">
-                <img src="https://placehold.co/150x150/4ade80/0f172a?text=Emily+Clark" alt="Emily Clark" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-400">
-                <h3 class="text-2xl font-semibold text-gray-100">Emily Clark</h3>
-                <p class="text-green-300 text-lg mb-2">UI/UX Designer</p>
-                <p class="text-gray-400 text-sm">Dedicated to creating intuitive and visually stunning user experiences that delight and convert.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section - Now Telegram Connect -->
-    <section id="contact" class="section bg-gray-800 bg-opacity-90">
-        <h2 class="text-4xl md:text-5xl font-bold mb-12 text-yellow-400 text-center animate-pulse-glow">Connect With Us!</h2>
-        <div class="bg-gray-700 rounded-xl p-8 shadow-xl max-w-2xl mx-auto w-full border border-yellow-500 button-glow text-center">
-            <p class="text-gray-300 mb-6 text-xl">
-                Have questions or ready to start a project? Connect with us directly on Telegram!
-            </p>
-            <a href="https://t.me/abdefef" target="_blank" rel="noopener noreferrer"
-               class="inline-flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-1 button-glow">
-                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.3 7.8L9.8 14.3c-.2.2-.5.3-.8.3-.3 0-.6-.1-.8-.3-.4-.4-.4-1 0-1.4l6.5-6.5c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4zM7.7 13.5l1.4 1.4c.4.4 1 .4 1.4 0l6.5-6.5c.4-.4.4-1 0-1.4-.4-.4-1-.4-1.4 0l-6.5 6.5c-.4.4-.4 1 0 1.4z"/>
-                </svg>
-                Join us on Telegram
-            </a>
-        </div>
-    </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 bg-opacity-80 p-6 text-center text-gray-400 text-sm">
-        <p>&copy; 2025 Our Agency. All rights reserved.</p>
-        <div class="mt-2 space-x-4">
-            <a href="#" class="hover:text-blue-400 transition duration-300">Privacy Policy</a>
-            <a href="#" class="hover:text-blue-400 transition duration-300">Terms of Service</a>
+    <footer class="w-full bg-gray-900 bg-opacity-70 backdrop-blur-md p-6 rounded-t-3xl shadow-lg mt-auto">
+        <div class="container mx-auto text-center text-gray-400">
+            <p>&copy; 2024 Our Agency. All rights reserved.</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
+                <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Three.js Scene Setup
-        let scene, camera, renderer, controls;
-        let socialMediaGroup, webDevGroup, particles;
-        const loadingScreen = document.getElementById('loading-screen');
-        const webglContainer = document.getElementById('webgl-container');
+        // Three.js setup
+        let scene, camera, renderer, sphere, controls;
 
         function initThreeJS() {
             // Scene
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x1a202c); // Dark background
-            scene.fog = new THREE.Fog(0x1a202c, 20, 100); // Add fog for depth
 
             // Camera
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.set(0, 0, 15);
+            camera.position.z = 5;
 
             // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.getElementById('three-canvas') });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            webglContainer.appendChild(renderer.domElement);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(0x111827, 1); // Dark blue-gray background
+
+            // Lights
+            const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(1, 1, 1).normalize();
+            scene.add(directionalLight);
+
+            // Create a more complex 3D object: Icosahedron with particles
+            const geometry = new THREE.IcosahedronGeometry(1.5, 1); // Radius, detail
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x6366f1, // Purple color
+                shininess: 100,
+                specular: 0x999999,
+                transparent: true,
+                opacity: 0.8
+            });
+            sphere = new THREE.Mesh(geometry, material);
+            scene.add(sphere);
+
+            // Add a particle system around the sphere
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 5000;
+            const posArray = new Float32Array(particlesCount * 3);
+
+            for (let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10; // Spread particles in a cube
+            }
+
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0xa855f7 // Pinkish purple
+            });
+
+            const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particleMesh);
 
             // OrbitControls
+            // Now that OrbitControls is loaded globally, it's accessible via THREE.OrbitControls
             controls = new THREE.OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true; // Smooth camera movement
             controls.dampingFactor = 0.05;
             controls.screenSpacePanning = false;
-            controls.minDistance = 10;
-            controls.maxDistance = 50;
-            controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below ground
+            controls.minDistance = 3;
+            controls.maxDistance = 10;
+            controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below the "ground"
 
-            // Lighting
-            const ambientLight = new THREE.AmbientLight(0x404040, 2); // Soft white light
-            scene.add(ambientLight);
-
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Brighter light
-            directionalLight.position.set(5, 10, 7.5);
-            scene.add(directionalLight);
-
-            // --- Social Media Services Object (Interconnected Spheres) ---
-            socialMediaGroup = new THREE.Group();
-            // Added emissive color for a subtle glow
-            const sphereMaterial = new THREE.MeshStandardMaterial({ color: 0x63b3ed, emissive: 0x3182ce, emissiveIntensity: 0.5, metalness: 0.8, roughness: 0.2 });
-            const lineMaterial = new THREE.LineBasicMaterial({ color: 0x4299e1, linewidth: 2 });
-
-            const numSpheres = 15; // Increased number of spheres
-            const spheres = [];
-            for (let i = 0; i < numSpheres; i++) {
-                const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), sphereMaterial);
-                sphere.position.set(
-                    (Math.random() - 0.5) * 15, // Wider spread
-                    (Math.random() - 0.5) * 15,
-                    (Math.random() - 0.5) * 15
-                );
-                socialMediaGroup.add(sphere);
-                spheres.push(sphere);
-            }
-
-            // Connect spheres with lines
-            for (let i = 0; i < numSpheres; i++) {
-                for (let j = i + 1; j < numSpheres; j++) {
-                    if (spheres[i].position.distanceTo(spheres[j].position) < 6) { // Adjusted connection distance
-                        const points = [];
-                        points.push(spheres[i].position);
-                        points.push(spheres[j].position);
-                        const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                        const line = new THREE.Line(geometry, lineMaterial);
-                        socialMediaGroup.add(line);
-                    }
-                }
-            }
-            socialMediaGroup.position.set(-10, 0, 0); // Position left
-            scene.add(socialMediaGroup);
-
-            // --- Web Development Services Object (Abstract Geometric Shapes) ---
-            webDevGroup = new THREE.Group();
-            // Added emissive color for a subtle glow
-            const geoMaterial = new THREE.MeshStandardMaterial({ color: 0x9f7aea, emissive: 0x805ad5, emissiveIntensity: 0.4, metalness: 0.6, roughness: 0.4 });
-
-            // Cube
-            const cube = new THREE.Mesh(new THREE.BoxGeometry(2, 2, 2), geoMaterial);
-            cube.position.set(0, 1.5, 0);
-            webDevGroup.add(cube);
-
-            // Dodecahedron
-            const dodecahedron = new THREE.Mesh(new THREE.DodecahedronGeometry(1.5), geoMaterial);
-            dodecahedron.position.set(2, -1.5, 1);
-            webDevGroup.add(dodecahedron);
-
-            // Torus Knot
-            const torusKnot = new THREE.Mesh(new THREE.TorusKnotGeometry(1, 0.3, 100, 16), geoMaterial);
-            torusKnot.position.set(-2, -1, -1);
-            webDevGroup.add(torusKnot);
-
-            webDevGroup.position.set(10, 0, 0); // Position right
-            scene.add(webDevGroup);
-
-            // --- Background Particles ---
-            const particleGeometry = new THREE.BufferGeometry();
-            const particleCount = 3000; // Increased particle count
-            const posArray = new Float32Array(particleCount * 3);
-            const velArray = new Float32Array(particleCount * 3); // Velocity array for movement
-
-            for (let i = 0; i < particleCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 200; // Spread particles over a large area
-                velArray[i] = (Math.random() - 0.5) * 0.005; // Small random velocity
-            }
-
-            particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            particleGeometry.setAttribute('velocity', new THREE.BufferAttribute(velArray, 3)); // Add velocity attribute
-
-            const particleMaterial = new THREE.PointsMaterial({
-                color: 0xcccccc,
-                size: 0.1,
-                transparent: true,
-                blending: THREE.AdditiveBlending,
-                sizeAttenuation: true
-            });
-            particles = new THREE.Points(particleGeometry, particleMaterial);
-            scene.add(particles);
-
-            // Hide loading screen once Three.js is initialized
-            loadingScreen.classList.add('hidden');
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize, false);
         }
 
-        // Animation Loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Animate social media group
-            socialMediaGroup.rotation.y += 0.005;
-            socialMediaGroup.rotation.x += 0.002;
-
-            // Animate web development group
-            webDevGroup.rotation.y -= 0.007;
-            webDevGroup.rotation.z += 0.003;
-
-            // Animate particles
-            const positions = particles.geometry.attributes.position.array;
-            const velocities = particles.geometry.attributes.velocity.array;
-
-            for (let i = 0; i < positions.length; i += 3) {
-                positions[i] += velocities[i];
-                positions[i + 1] += velocities[i + 1];
-                positions[i + 2] += velocities[i + 2];
-
-                // Wrap particles if they go too far
-                if (positions[i] > 100 || positions[i] < -100) velocities[i] *= -1;
-                if (positions[i + 1] > 100 || positions[i + 1] < -100) velocities[i + 1] *= -1;
-                if (positions[i + 2] > 100 || positions[i + 2] < -100) velocities[i + 2] *= -1;
-            }
-            particles.geometry.attributes.position.needsUpdate = true; // Important for updating particle positions
-
-            controls.update(); // Only required if controls.enableDamping or controls.autoRotate are set to true
-            renderer.render(scene, camera);
-        }
-
-        // Handle Window Resizing
         function onWindowResize() {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        window.addEventListener('resize', onWindowResize);
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate the sphere
+            if (sphere) {
+                sphere.rotation.x += 0.001;
+                sphere.rotation.y += 0.002;
+            }
+
+            // Update controls
+            controls.update();
+
+            renderer.render(scene, camera);
+        }
 
         // Initialize Three.js on window load
-        window.onload = function () {
+        window.onload = function() {
             initThreeJS();
             animate();
         };
 
         // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // Check if the href is an internal anchor link (starts with #)
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80, // Adjust for fixed header height
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                // For external links (like service pages), let the default behavior happen
             });
         });
     </script>

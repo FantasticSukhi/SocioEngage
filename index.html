@@ -3,318 +3,955 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - 3D Experience</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- OrbitControls for camera interaction (changed to r125 version for compatibility) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/examples/js/controls/OrbitControls.js"></script>
+    <title>Ujjwal Verma - Freelance Business Ideas & Management Expert</title>
+    <meta name="description" content="Ujjwal Verma's freelance portfolio showcasing expertise in business idea generation, strategic planning, project management, and operational efficiency.">
+    <meta name="keywords" content="Ujjwal Verma, Freelance, Business Ideas, Management Expert, Strategic Planning, Project Management, Consulting, Operations, Efficiency, Entrepreneurship, Innovation">
+    <meta name="author" content="Ujjwal Verma">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yourportfolio.com"> <meta property="og:title" content="Ujjwal Verma - Freelance Business Ideas & Management Expert">
+    <meta property="og:description" content="Explore the freelance portfolio of Ujjwal Verma, specializing in generating innovative business ideas and optimizing management strategies.">
+    <meta property="og:image" content="https://www.yourportfolio.com/preview.jpg"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.yourportfolio.com"> <meta property="twitter:title" content="Ujjwal Verma - Freelance Business Ideas & Management Expert">
+    <meta property="twitter:description" content="Explore the freelance portfolio of Ujjwal Verma, specializing in generating innovative business ideas and optimizing management strategies.">
+    <meta property="twitter:image" content="https://www.yourportfolio.com/preview.jpg"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* Custom CSS for body and canvas */
+        :root {
+            --primary-blue: #007bff; /* A vibrant professional blue */
+            --primary-gold: #FFD700; /* Gold accent */
+            --dark-bg: #121212; /* Dark background for depth */
+            --card-bg: #1e1e1e; /* Slightly lighter for cards */
+            --text-light: #e0e0e0;
+            --text-dark: #f5f5f5;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition-speed: 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        /* Base Styles */
         body {
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden; /* Prevent horizontal scroll */
             margin: 0;
             padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.7;
+            scroll-behavior: smooth;
         }
-        canvas {
-            display: block;
-            position: fixed;
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin-top: 0;
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: var(--primary-gold);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: rgba(18, 18, 18, 0.95); /* Semi-transparent for subtle effect */
+            padding: 1rem 0;
+            position: sticky; /* Sticky nav */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: -0.05em;
+        }
+        .logo span {
+            color: var(--primary-blue);
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            padding-bottom: 0.3rem;
+            color: var(--text-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-speed);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* Important for particles */
+            padding: 2rem 0;
+            background-color: #000000; /* Ensure black background for space effect */
+        }
+
+        /* Particle container styling */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1; /* Place canvas behind content */
+            z-index: 0; /* Behind the content */
+            background-color: #000000; /* Ensure background is black */
         }
-        .content-section {
-            background-color: rgba(17, 24, 39, 0.85); /* Darker background with transparency */
-            border-radius: 1.5rem; /* Rounded corners */
-            padding: 2.5rem; /* Increased padding */
-            margin: 2rem auto; /* Center with margin */
-            max-width: 90%; /* Max width for content */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); /* Stronger shadow */
-            backdrop-filter: blur(10px); /* Frosted glass effect */
-            -webkit-backdrop-filter: blur(10px); /* Safari support */
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+
+        .hero-content {
+            position: relative;
+            z-index: 2; /* On top of particles */
+            max-width: 900px;
+            animation: fadeIn 1.5s ease-out;
         }
-        /* Gradient text for headings */
-        .gradient-text {
-            background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
+            text-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: var(--text-dark);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color var(--transition-speed), transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--card-bg); /* Alternate background for sections */
+        }
+
+        section h2 {
+            font-size: 3.2rem;
+            margin-bottom: 4rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-gold);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #about .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        #about .profile-img {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 3px solid var(--primary-blue);
+        }
+        #about .profile-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px; /* Inner rounding */
+        }
+        #about p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        #about strong {
+            color: var(--primary-gold);
+        }
+
+        /* Skills Section */
+        #skills .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        #skills .skill-category {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #skills .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+        }
+        #skills .skill-category h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        #skills .skill-category h3 i {
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+        }
+        #skills .skill-category ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        #skills .skill-category li {
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        #skills .skill-category li::before {
+            content: '\f058'; /* Check circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            top: 3px;
+        }
+
+        /* Experience Section */
+        #experience .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 0 0 2rem; /* Left padding for line */
+        }
+        #experience .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            width: 4px;
+            background-color: var(--primary-blue);
+            height: 100%;
+            border-radius: 2px;
+        }
+        #experience .timeline-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        #experience .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        #experience .timeline-item::before { /* Circle on the line */
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--primary-gold);
+            left: -1.8rem; /* Position relative to .timeline-item */
+            top: 2rem;
+            border: 4px solid var(--dark-bg); /* "Cut out" effect */
+        }
+        #experience .timeline-item h3 {
+            color: var(--primary-gold);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        #experience .timeline-item p.duration {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #experience .timeline-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        #experience .timeline-item li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.95rem;
+        }
+        #experience .timeline-item li::before {
+            content: '\f0da'; /* Caret right icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-size: 0.8rem;
+            top: 5px;
+        }
+
+        /* Projects Section */
+        #projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        #projects .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #projects .project-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 25px rgba(0, 123, 255, 0.2);
+        }
+        #projects .project-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #projects .project-info {
+            padding: 1.5rem;
+        }
+        #projects .project-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+        #projects .project-info p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        #projects .project-info .tech-stack {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #projects .project-links {
+            margin-top: 1rem;
+        }
+        #projects .project-links a {
+            margin-right: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            white-space: nowrap; /* Prevent breaking */
+        }
+        #projects .project-links a i {
+            margin-right: 0.5rem;
+        }
+
+
+        /* Contact Section */
+        #contact .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #contact .contact-info-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        #contact .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+        #contact .contact-info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+        #contact .contact-info-card div {
+            flex-grow: 1;
+        }
+        #contact .contact-info-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.3rem;
+        }
+        #contact .contact-info-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        #contact .contact-info-card a {
+            font-size: 0.95rem;
+        }
+        #contact .social-links {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+        #contact .social-links a {
+            font-size: 2.8rem;
+            color: var(--text-light);
+            transition: color var(--transition-speed), transform 0.3s ease;
+        }
+        #contact .social-links a:hover {
+            color: var(--primary-gold);
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            color: #aaa;
+            text-align: center;
+            padding: 1.5rem 0; /* Reduced padding */
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 0; /* Removed margin-top */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                display: none; /* Hide nav links on smaller screens for now */
+            }
+            /* You'd typically add a hamburger menu here */
+            #hero h1 {
+                font-size: 3rem;
+            }
+            #hero p {
+                font-size: 1.2rem;
+            }
+            section {
+                padding: 4rem 0;
+            }
+            section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+            }
+            #about .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            #about .profile-img {
+                margin-bottom: 2rem;
+            }
+            #skills .skills-grid,
+            #projects .projects-grid,
+            #contact .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            #experience .timeline {
+                padding-left: 1rem; /* Adjust for smaller screens */
+            }
+            #experience .timeline::before {
+                left: 0.5rem;
+            }
+            #experience .timeline-item::before {
+                left: -1.3rem;
+            }
+            #projects .project-card img {
+                height: 180px;
+            }
         }
     </style>
 </head>
-<body class="text-gray-100 min-h-screen flex flex-col items-center justify-start relative">
-
-    <!-- 3D Canvas will be injected here by Three.js -->
-    <canvas id="three-canvas"></canvas>
-
-    <!-- Navigation Bar -->
-    <nav class="w-full bg-gray-900 bg-opacity-70 backdrop-blur-md p-4 rounded-b-3xl shadow-lg fixed top-0 z-10">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <a href="#" class="text-2xl font-bold text-white gradient-text">Our Agency</a>
-            <div class="flex space-x-6">
-                <a href="#home" class="text-gray-300 hover:text-white transition duration-300">Home</a>
-                <a href="#services" class="text-gray-300 hover:text-white transition duration-300">Services</a>
-                <a href="#team" class="text-gray-300 hover:text-white transition duration-300">Team</a>
-                <a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a>
-            </div>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#hero" class="logo">Ujjwal<span>.Consults</span></a>
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Expertise</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Case Studies</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <!-- Main Content Sections -->
-    <main class="relative z-0 w-full mt-24 pb-8"> <!-- Added mt-24 to push content below fixed nav -->
-
-        <!-- Hero Section -->
-        <section id="home" class="content-section text-center py-20 px-6">
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 gradient-text leading-tight">
-                Innovate. Create. Elevate.
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                Transforming ideas into digital realities with cutting-edge web development and impactful social media strategies.
-            </p>
-            <div class="flex justify-center space-x-4">
-                <a href="#services" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-                    Our Services
-                </a>
-                <a href="#contact" class="bg-transparent border-2 border-purple-600 text-purple-300 hover:bg-purple-600 hover:text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-                    Get in Touch
-                </a>
+    <main>
+        <section id="hero">
+            <div id="particles-js"></div> 
+            <div class="hero-content">
+                <p>Hello, I'm</p>
+                <h1>Ujjwal Verma</h1>
+                <p>Your Freelance Business Ideas & Management Expert</p>
+                <a href="#projects" class="btn">View My Work <i class="fas fa-arrow-right"></i></a>
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services" class="content-section py-16 px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text">Our Services</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <!-- Social Media Services -->
-                <a href="social-media-services.html" class="block w-full bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300 group">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-10 h-10 text-purple-400 mr-4 group-hover:text-purple-300 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H2v-2a3 3 0 015.356-1.857M17 20v-2c0-.653-.131-1.272-.372-1.838M2 20v-2c0-.653.131-1.272.372-1.838M12 10a6 6 0 110-12 6 6 0 010 12zm0 0a6 6 0 00-6-6h-2a6 6 0 006 6h2zm-6 0a6 6 0 006 6h2a6 6 0 00-6-6h-2z"></path></svg>
-                        <h3 class="text-3xl font-semibold text-white group-hover:text-gray-100 transition duration-300">Social Media Marketing</h3>
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            Greetings! I'm Ujjwal Verma, a dedicated and results-oriented freelance Business Ideas Provider and Management Expert with 2 years of experience in helping individuals and organizations thrive. My passion lies in transforming nascent concepts into viable business models and optimizing existing operations for peak performance.
+                        </p>
+                        <p>
+                            I specialize in strategic planning, market analysis, and developing innovative solutions tailored to unique challenges. Whether you're a startup looking for your breakthrough idea, or an established business seeking to streamline your processes, my approach focuses on actionable insights and sustainable growth.
+                        </p>
+                        <p>
+                            My freelancing journey has provided me with a diverse set of experiences, working with various clients to identify opportunities, mitigate risks, and implement effective management strategies. I believe in a collaborative process, working closely with clients to understand their vision and deliver tangible results that drive success. I'm excited to partner with you to turn your business aspirations into reality.
+                        </p>
                     </div>
-                    <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition duration-300">
-                        Amplify your brand's voice and reach with our comprehensive social media strategies. We help you connect with your audience, build community, and drive engagement.
-                    </p>
-                    <ul class="list-disc list-inside text-gray-400 space-y-2 group-hover:text-gray-300 transition duration-300">
-                        <li>Strategic Content Creation & Curation</li>
-                        <li>Audience Engagement & Community Management</li>
-                        <li>Paid Social Media Campaigns (Ads)</li>
-                        <li>Performance Analytics & Reporting</li>
-                        <li>Influencer Collaboration</li>
-                    </ul>
-                </a>
-
-                <!-- Web Development Services -->
-                <a href="web-development-services.html" class="block w-full bg-gray-800 p-8 rounded-2xl shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300 group">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-10 h-10 text-blue-400 mr-4 group-hover:text-blue-300 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                        <h3 class="text-3xl font-semibold text-white group-hover:text-gray-100 transition duration-300">Web Development</h3>
+                    <div class="profile-img">
+                        <img src="https://via.placeholder.com/300x300/007bff/ffffff?text=Ujjwal+Verma" alt="Ujjwal Verma Profile">
                     </div>
-                    <p class="text-gray-300 mb-6 group-hover:text-gray-200 transition duration-300">
-                        From stunning portfolios to robust e-commerce platforms, we build responsive, secure, and high-performing websites tailored to your unique business needs.
-                    </p>
-                    <ul class="list-disc list-inside text-gray-400 space-y-2 group-hover:text-gray-300 transition duration-300">
-                        <li>Custom Website Design & Development</li>
-                        <li>E-commerce Solutions (Shopify, WooCommerce)</li>
-                        <li>Content Management Systems (CMS)</li>
-                        <li>Responsive UI/UX Design</li>
-                        <li>Website Maintenance & Support</li>
-                    </ul>
-                </a>
-            </div>
-        </section>
-
-        <!-- Team Details Section -->
-        <section id="team" class="content-section py-16 px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text">Meet Our Team</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Team Member 1 -->
-                <div class="bg-gray-800 p-6 rounded-2xl text-center shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
-                    <img src="https://placehold.co/150x150/6A0DAD/FFFFFF?text=Ava" alt="Team Member Ava" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-purple-500">
-                    <h3 class="text-2xl font-semibold text-white mb-2">Ava Sharma</h3>
-                    <p class="text-purple-400 text-lg mb-3">Lead Web Developer</p>
-                    <p class="text-gray-400 text-sm">
-                        With over 10 years of experience, Ava leads our web development team, specializing in scalable and secure web solutions.
-                    </p>
-                </div>
-                <!-- Team Member 2 -->
-                <div class="bg-gray-800 p-6 rounded-2xl text-center shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
-                    <img src="https://placehold.co/150x150/3B82F6/FFFFFF?text=Ben" alt="Team Member Ben" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-500">
-                    <h3 class="text-2xl font-semibold text-white mb-2">Ben Carter</h3>
-                    <p class="text-blue-400 text-lg mb-3">Social Media Strategist</p>
-                    <p class="text-gray-400 text-sm">
-                        Ben is our social media guru, crafting engaging campaigns that connect brands with their target audiences.
-                    </p>
-                </div>
-                <!-- Team Member 3 -->
-                <div class="bg-gray-800 p-6 rounded-2xl text-center shadow-xl border border-gray-700 transform hover:scale-105 transition duration-300">
-                    <img src="https://placehold.co/150x150/10B981/FFFFFF?text=Chloe" alt="Team Member Chloe" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-green-500">
-                    <h3 class="text-2xl font-semibold text-white mb-2">Chloe Davis</h3>
-                    <p class="text-green-400 text-lg mb-3">UI/UX Designer</p>
-                    <p class="text-gray-400 text-sm">
-                        Chloe ensures every digital product we create is not only functional but also intuitive and visually appealing.
-                    </p>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="content-section py-16 px-6">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 gradient-text">Connect Us</h2>
-            <div class="max-w-xl mx-auto text-center">
-                <p class="text-gray-300 text-lg mb-8">
-                    हमसे जुड़ें और अपनी डिजिटल यात्रा शुरू करें!
-                </p>
-                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
-                    <a href="https://t.me/your_telegram_account" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
-                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.364 5.636a9 9 0 100 12.728 9 9 0 000-12.728zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.707 8.293L11 14.999l-2.707-2.707a1 1 0 010-1.414l1.414-1.414a1 1 0 011.414 0l.293.293.293-.293a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414z"></path></svg>
-                        Telegram पर जुड़ें
-                    </a>
-                    <a href="https://wa.me/your_support_chat_number" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition duration-300 transform hover:scale-105 flex items-center justify-center">
-                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.707 8.293L11 14.999l-2.707-2.707a1 1 0 010-1.414l1.414-1.414a1 1 0 011.414 0l.293.293.293-.293a1 1 0 011.414 0l1.414 1.414a1 1 0 010 1.414z"></path></svg>
-                        सपोर्ट चैट
-                    </a>
+        <section id="skills">
+            <div class="container">
+                <h2>My Areas of Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-lightbulb"></i> Business Idea Generation</h3>
+                        <ul>
+                            <li>Market Opportunity Identification</li>
+                            <li>Niche Discovery & Validation</li>
+                            <li>Innovation & Brainstorming</li>
+                            <li>Feasibility Analysis</li>
+                            <li>Concept Development</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-chart-line"></i> Strategic Planning</h3>
+                        <ul>
+                            <li>Business Model Canvas Development</li>
+                            <li>SWOT Analysis</li>
+                            <li>Competitive Analysis</li>
+                            <li>Growth Strategy Formulation</li>
+                            <li>Market Entry Strategies</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-tasks"></i> Project Management</h3>
+                        <ul>
+                            <li>Project Planning & Execution</li>
+                            <li>Resource Allocation</li>
+                            <li>Risk Management</li>
+                            <li>Timeline & Budget Management</li>
+                            <li>Performance Monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-cogs"></i> Operations Management</h3>
+                        <ul>
+                            <li>Process Optimization & Automation</li>
+                            <li>Workflow Streamlining</li>
+                            <li>Efficiency Improvement</li>
+                            <li>Supply Chain Fundamentals</li>
+                            <li>Quality Assurance Principles</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-handshake"></i> Client & Stakeholder Management</h3>
+                        <ul>
+                            <li>Requirements Gathering</li>
+                            <li>Communication & Reporting</li>
+                            <li>Expectation Management</li>
+                            <li>Conflict Resolution</li>
+                            <li>Partnership Building</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-globe-americas"></i> Research & Analytics</h3>
+                        <ul>
+                            <li>Market Research</li>
+                            <li>Data Analysis (Basic)</li>
+                            <li>Trend Forecasting</li>
+                            <li>Report Generation</li>
+                            <li>Decision Support</li>
+                        </ul>
+                    </div>
                 </div>
-                <p class="text-gray-400 text-sm mt-4">
-                    आप हमें सीधे ईमेल भी कर सकते हैं: <a href="mailto:info@youragency.com" class="text-purple-300 hover:underline">info@youragency.com</a>
-                </p>
             </div>
         </section>
 
+        <section id="experience">
+            <div class="container">
+                <h2>Professional Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Freelance Business & Management Consultant</h3>
+                        <p class="duration">July 2023 - Present | Self-Employed</p>
+                        <ul>
+                            <li>Provided strategic guidance to startups and SMEs, assisting in the development and refinement of new business concepts.</li>
+                            <li>Conducted market research and feasibility studies to validate business ideas and identify growth opportunities.</li>
+                            <li>Advised clients on operational efficiencies and process improvements to enhance productivity and reduce costs.</li>
+                            <li>Developed comprehensive business plans and presented actionable recommendations to diverse stakeholders.</li>
+                            <li>Managed multiple consulting engagements simultaneously, ensuring timely and effective project delivery.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>[Your Previous Role/Relevant Education]</h3>
+                        <p class="duration">[Start Date] - [End Date]</p>
+                        <ul>
+                            <li>[Key responsibility or achievement 1 related to business/management]</li>
+                            <li>[Key responsibility or achievement 2 related to business/management]</li>
+                            <li>[Key responsibility or achievement 3 related to business/management]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2>Key Case Studies & Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/007bff/ffffff?text=Business+Strategy" alt="Startup Growth Strategy">
+                        <div class="project-info">
+                            <h3>Startup Growth Strategy for Tech Innovator</h3>
+                            <p>Developed a comprehensive market entry and growth strategy for a tech startup, leading to a 30% increase in user acquisition in the first 6 months post-launch.</p>
+                            <p class="tech-stack">Expertise Utilized: Market Analysis, Strategic Planning, Business Model Generation, Risk Assessment</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-file-alt"></i> View Case Study</a>
+                                <a href="YOUR_PRESENTATION_LINK" target="_blank"><i class="fas fa-presentation"></i> Presentation</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/FFD700/000000?text=Operational+Efficiency" alt="Operational Efficiency Project">
+                        <div class="project-info">
+                            <h3>Operational Efficiency for E-commerce SME</h3>
+                            <p>Streamlined inventory management and order fulfillment processes for an e-commerce business, resulting in a 15% reduction in operational costs and faster delivery times.</p>
+                            <p class="tech-stack">Expertise Utilized: Process Mapping, Workflow Optimization, Supply Chain Basics, Performance Metrics</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-file-alt"></i> View Case Study</a>
+                                <a href="YOUR_REPORT_LINK" target="_blank"><i class="fas fa-chart-bar"></i> View Report</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/800080/ffffff?text=New+Product+Launch" alt="New Product Development">
+                        <div class="project-info">
+                            <h3>New Product Idea & Launch Plan (Consumer Goods)</h3>
+                            <p>Generated and validated a new product concept for a consumer goods brand, providing a detailed launch plan covering market positioning and preliminary financials.</p>
+                            <p class="tech-stack">Expertise Utilized: Idea Generation, Consumer Research, Product-Market Fit, Financial Projections</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-file-alt"></i> View Case Study</a>
+                                <a href="YOUR_REPORT_LINK" target="_blank"><i class="fas fa-chart-pie"></i> Concept Deck</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Let's Innovate Together</h2>
+                <p style="margin-bottom: 3rem;">Ready to transform your ideas into success? Or looking to optimize your business operations? Reach out!</p>
+                <div class="contact-grid">
+                    <div class="contact-info-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Me</h3>
+                            <a href="mailto:ujjwal.email@example.com">Not on this time</a> </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Call Me</h3>
+                            <p><a href="tel:+919891408459">+91-9891408459</a></p> </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Delhi, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="YOUR_LINKEDIN_PROFILE" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="YOUR_BEHANCE_OR_PORTFOLIO_LINK" target="_blank" aria-label="Portfolio"><i class="fas fa-briefcase"></i></a> <a href="YOUR_TWITTER_PROFILE" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="w-full bg-gray-900 bg-opacity-70 backdrop-blur-md p-6 rounded-t-3xl shadow-lg mt-auto">
-        <div class="container mx-auto text-center text-gray-400">
-            <p>&copy; 2024 Our Agency. All rights reserved.</p>
-            <div class="flex justify-center space-x-6 mt-4">
-                <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
-                <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
-            </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Ujjwal Verma. All rights reserved.</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
     <script>
-        // Three.js setup
-        let scene, camera, renderer, sphere, controls;
-
-        function initThreeJS() {
-            // Scene
-            scene = new THREE.Scene();
-
-            // Camera
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 5;
-
-            // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true, canvas: document.getElementById('three-canvas') });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setClearColor(0x111827, 1); // Dark blue-gray background
-
-            // Lights
-            const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
-            scene.add(ambientLight);
-
-            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-            directionalLight.position.set(1, 1, 1).normalize();
-            scene.add(directionalLight);
-
-            // Create a more complex 3D object: Icosahedron with particles
-            const geometry = new THREE.IcosahedronGeometry(1.5, 1); // Radius, detail
-            const material = new THREE.MeshPhongMaterial({
-                color: 0x6366f1, // Purple color
-                shininess: 100,
-                specular: 0x999999,
-                transparent: true,
-                opacity: 0.8
-            });
-            sphere = new THREE.Mesh(geometry, material);
-            scene.add(sphere);
-
-            // Add a particle system around the sphere
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 5000;
-            const posArray = new Float32Array(particlesCount * 3);
-
-            for (let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 10; // Spread particles in a cube
-            }
-
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.02,
-                color: 0xa855f7 // Pinkish purple
-            });
-
-            const particleMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particleMesh);
-
-            // OrbitControls
-            // Now that OrbitControls is loaded globally, it's accessible via THREE.OrbitControls
-            controls = new THREE.OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true; // Smooth camera movement
-            controls.dampingFactor = 0.05;
-            controls.screenSpacePanning = false;
-            controls.minDistance = 3;
-            controls.maxDistance = 10;
-            controls.maxPolarAngle = Math.PI / 2; // Prevent camera from going below the "ground"
-
-            // Handle window resize
-            window.addEventListener('resize', onWindowResize, false);
-        }
-
-        function onWindowResize() {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-
-            // Rotate the sphere
-            if (sphere) {
-                sphere.rotation.x += 0.001;
-                sphere.rotation.y += 0.002;
-            }
-
-            // Update controls
-            controls.update();
-
-            renderer.render(scene, camera);
-        }
-
-        // Initialize Three.js on window load
-        window.onload = function() {
-            initThreeJS();
-            animate();
-        };
-
         // Smooth scrolling for navigation links
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                // Check if the href is an internal anchor link (starts with #)
-                if (this.getAttribute('href').startsWith('#')) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80, // Adjust for fixed header height
-                            behavior: 'smooth'
-                        });
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Update active class
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Function to set active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Adjust this value for when the active link changes, e.g., sectionHeight / 2 or 100 (pixels)
+                if (scrollY >= sectionTop - sectionHeight / 3) { 
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 150, // Number of particles
+                    "density": {
+                        "enable": true,
+                        "value_area": 800 // Area density
+                    }
+                },
+                "color": {
+                    "value": "#ffffff" // White particles
+                },
+                "shape": {
+                    "type": "circle", // Particles are circles
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5, // Particle opacity
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 2, // Particle size
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false, // No lines between particles
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 0.8, // Slow movement for a subtle effect
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
                     }
                 }
-                // For external links (like service pages), let the default behavior happen
-            });
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble" // Particles subtly react on hover
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse" // Push particles away on click
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 4,
+                        "duration": 2,
+                        "opacity": 0.8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
         });
     </script>
 </body>

@@ -680,6 +680,251 @@
                 height: 100px;
             }
         }
+		.dark-guarantee-section {
+          background: radial-gradient(ellipse at center, #0f0f1a 0%, #000000 100%);
+          padding: 100px 0;
+          color: #e2e8f0;
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .dark-guarantee-section::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMDAwMDAwIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDVMNSAwWk02IDRMNCA2Wk0tMSAxTDEgLTFaIiBzdHJva2U9IiMxMTExMjIiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPgo8L3N2Zz4=');
+          opacity: 0.15;
+        }
+        
+        .section-header {
+          text-align: center;
+          margin-bottom: 60px;
+          position: relative;
+          z-index: 2;
+        }
+        
+        .section-badge {
+          display: inline-block;
+          background: rgba(99, 102, 241, 0.15);
+          color: #a5b4fc;
+          padding: 8px 20px;
+          border-radius: 50px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          letter-spacing: 1px;
+          margin-bottom: 20px;
+          text-transform: uppercase;
+        }
+        
+        .section-header h2 {
+          font-size: 2.8rem;
+          margin: 15px 0;
+          font-weight: 700;
+          line-height: 1.2;
+        }
+        
+        .gradient-text {
+          background: linear-gradient(90deg, #a5b4fc 0%, #818cf8 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+        
+        .section-subtitle {
+          color: #94a3b8;
+          font-size: 1.1rem;
+          max-width: 600px;
+          margin: 0 auto;
+          line-height: 1.6;
+        }
+        
+        .guarantee-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 30px;
+          max-width: 1100px;
+          margin: 0 auto;
+          position: relative;
+          z-index: 2;
+        }
+        
+        .guarantee-card {
+          background: rgba(15, 23, 42, 0.7);
+          padding: 40px 30px;
+          border-radius: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .guarantee-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+          border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .guarantee-card::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+        
+        .guarantee-card:hover::before {
+          opacity: 1;
+        }
+        
+        .card-icon {
+          width: 70px;
+          height: 70px;
+          background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 25px;
+          box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .card-icon svg {
+          width: 32px;
+          height: 32px;
+          color: white;
+        }
+        
+        .guarantee-card h3 {
+          font-size: 1.5rem;
+          color: #e2e8f0;
+          margin-bottom: 20px;
+          font-weight: 600;
+          position: relative;
+        }
+        
+        .guarantee-list {
+          padding-left: 0;
+          list-style: none;
+        }
+        
+        .guarantee-list li {
+          position: relative;
+          padding-left: 32px;
+          margin-bottom: 14px;
+          line-height: 1.6;
+          color: #94a3b8;
+          font-size: 1.05rem;
+        }
+        
+        .guarantee-list li::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 8px;
+          width: 18px;
+          height: 18px;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23818cf8'%3E%3Cpath fill-rule='evenodd' d='M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z' clip-rule='evenodd' /%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+        }
+        
+        .glow {
+          position: absolute;
+          width: 100px;
+          height: 100px;
+          background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, rgba(99, 102, 241, 0) 70%);
+          filter: blur(15px);
+          opacity: 0;
+          transition: opacity 0.4s ease;
+        }
+        
+        .guarantee-card:hover .glow {
+          opacity: 1;
+        }
+        
+        .cta-container {
+          text-align: center;
+          margin-top: 70px;
+          padding-top: 50px;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          position: relative;
+          z-index: 2;
+        }
+        
+        .cta-container p {
+          color: #94a3b8;
+          font-size: 1.2rem;
+          margin-bottom: 30px;
+        }
+        
+        .highlight {
+          color: #a5b4fc;
+          font-weight: 500;
+        }
+        
+        .elite-button {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+          color: white;
+          padding: 16px 36px;
+          border-radius: 12px;
+          text-decoration: none;
+          font-weight: 500;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+          box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .elite-button::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+          transition: 0.5s;
+        }
+        
+        .elite-button:hover::before {
+          left: 100%;
+        }
+        
+        .elite-button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+        
+        .elite-button svg {
+          transition: transform 0.3s ease;
+        }
+        
+        .elite-button:hover svg {
+          transform: translateX(5px);
+        }
+        
+        @media (max-width: 768px) {
+          .section-header h2 {
+            font-size: 2.2rem;
+          }
+          
+          .guarantee-grid {
+            grid-template-columns: 1fr;
+          }
+          
+          .guarantee-card {
+            padding: 30px 20px;
+          }
+        }       
     </style>
 </head>
 <body>
@@ -802,6 +1047,77 @@
             </div>
         </section>
 
+        <section id="elite-guarantee" class="dark-guarantee-section">
+          <div class="container">
+            <div class="section-header">
+              <span class="section-badge">PROFESSIONAL ASSURANCE</span>
+              <h2>Uncompromising <span class="gradient-text">Service Standards</span></h2>
+              <p class="section-subtitle">Commitments that define my professional ethos</p>
+            </div>
+            
+            <div class="guarantee-grid">
+              <!-- Commitment 1 -->
+              <div class="guarantee-card">
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                  </svg>
+                </div>
+                <h3>Client Sovereignty</h3>
+                <ul class="guarantee-list">
+                  <li>Your vision remains the north star</li>
+                  <li>Included refinement iterations</li>
+                  <li>Direct creator access</li>
+                </ul>
+                <div class="glow"></div>
+              </div>
+        
+              <!-- Commitment 2 -->
+              <div class="guarantee-card">
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <h3>Chronological Precision</h3>
+                <ul class="guarantee-list">
+                  <li>Phase-locked delivery schedule</li>
+                  <li>Transparent progress tracking</li>
+                  <li>Time-bound completion guarantee</li>
+                </ul>
+                <div class="glow"></div>
+              </div>
+        
+              <!-- Commitment 3 -->
+              <div class="guarantee-card">
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3>Risk Mitigation</h3>
+                <ul class="guarantee-list">
+                  <li>Value-based payment milestones</li>
+                  <li>Complete asset ownership transfer</li>
+                  <li>Enterprise-grade confidentiality</li>
+                </ul>
+                <div class="glow"></div>
+              </div>
+            </div>
+        
+            <div class="cta-container">
+              <p>Expect <span class="highlight">white-glove service</span> from an independent specialist</p>
+              <a href="#contact" class="elite-button">
+                <span>Engage Services</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
+        
+
         <section id="our-journey"> <!-- Renamed from #experience -->
             <div class="container">
                 <h2>Our Journey to Excellence</h2> <!-- Renamed Section Title -->
@@ -836,6 +1152,68 @@
                 </div>
             </div>
         </section>
+
+        <section id="professional-guarantee" class="guarantee-section">
+          <div class="container">
+            <div class="section-header">
+              <h2>Professional Commitments</h2>
+              <p class="section-subtitle">Clear standards for exceptional service delivery</p>
+            </div>
+            
+            <div class="guarantee-grid">
+              <!-- Commitment 1 -->
+              <div class="guarantee-card">
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                  </svg>
+                </div>
+                <h3>Client-Centric Approach</h3>
+                <ul class="guarantee-list">
+                  <li>Your objectives drive project execution</li>
+                  <li>Comprehensive revision policy included</li>
+                  <li>Direct access to me throughout engagement</li>
+                </ul>
+              </div>
+        
+              <!-- Commitment 2 -->
+              <div class="guarantee-card">
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                </div>
+                <h3>Timely Delivery</h3>
+                <ul class="guarantee-list">
+                  <li>Transparent project timeline</li>
+                  <li>Regular progress reporting</li>
+                  <li>Guaranteed on-time completion</li>
+                </ul>
+              </div>
+        
+              <!-- Commitment 3 -->
+              <div class="guarantee-card">
+                <div class="card-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z" clip-rule="evenodd"/>
+                  </svg>
+                </div>
+                <h3>Risk-Free Engagement</h3>
+                <ul class="guarantee-list">
+                  <li>Milestone-based payment structure</li>
+                  <li>Full intellectual property transfer</li>
+                  <li>Confidentiality agreements available</li>
+                </ul>
+              </div>
+            </div>
+        
+            <div class="professional-cta">
+              <p>Partner with an independent professional dedicated to your success.</p>
+              <a href="#contact" class="primary-button">Initiate Collaboration</a>
+            </div>
+          </div>
+        </section>
+        
 
         <section id="our-work"> <!-- Renamed from #projects -->
             <div class="container">
@@ -894,54 +1272,54 @@
         </section>
 
         <section id="our-team">
-    <div class="container">
-        <h2>Meet Our Experts</h2>
-        <p style="margin-bottom: 3rem;">Behind every successful project at SocioEngage is a team of passionate and skilled professionals dedicated to delivering excellence.</p>
-        <div class="team-grid">
-            <!-- Team Member 1 -->
-            <a href="portfolio/sk.html" class="team-member-button">
-                <div class="team-member-card">
-                    <img src="https://placehold.co/120x120/007bff/ffffff?text=Member+1" alt="Team Member 1">
-                    <h3>Sukhpal Kherera</h3>
-                    <p class="role">Web & Python Developer</p>
-                    <p class="bio">With 8+ years experience, Sukhpal specializes in scalable backend architectures and intuitive frontend and backend experiences. She leads our development projects with precision.</p>
-                    <div class="team-social-links">
-                        <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
-                        <span aria-label="GitHub"><i class="fab fa-github"></i></span>
-                    </div>
+            <div class="container">
+                <h2>Meet Our Experts</h2>
+                <p style="margin-bottom: 3rem;">Behind every successful project at SocioEngage is a team of passionate and skilled professionals dedicated to delivering excellence.</p>
+                <div class="team-grid">
+                    <!-- Team Member 1 -->
+                    <a href="portfolio/sk.html" class="team-member-button">
+                        <div class="team-member-card">
+                            <img src="https://placehold.co/120x120/007bff/ffffff?text=Member+1" alt="Team Member 1">
+                            <h3>Sukhpal Kherera</h3>
+                            <p class="role">Web & Python Developer</p>
+                            <p class="bio">With 8+ years experience, Sukhpal specializes in scalable backend architectures and intuitive frontend and backend experiences. She leads our development projects with precision.</p>
+                            <div class="team-social-links">
+                                <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
+                                <span aria-label="GitHub"><i class="fab fa-github"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Team Member 2 -->
+                    <a href="portfolio/uv.html" class="team-member-button">
+                        <div class="team-member-card">
+                            <img src="https://placehold.co/120x120/FFD700/000000?text=Member+2" alt="Team Member 2">
+                            <h3>Ujjwal Verma</h3>
+                            <p class="role">Graphics Designer & Digital Marketing Strategist</p>
+                            <p class="bio">Ujjwal excels in crafting data-driven marketing campaigns that significantly boost online visibility and engagement for our clients.</p>
+                            <div class="team-social-links">
+                                <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
+                                <span aria-label="Twitter"><i class="fab fa-twitter"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Team Member 3 -->
+                    <a href="portfolio/d.html" class="team-member-button">
+                        <div class="team-member-card">
+                            <img src="https://placehold.co/120x120/800080/ffffff?text=Member+3" alt="Team Member 3">
+                            <h3>Dixit</h3>
+                            <p class="role">Content & Copywriting Lead</p>
+                            <p class="bio">Emily brings stories to life with compelling content and sharp copywriting, ensuring your brand message resonates with your audience.</p>
+                            <div class="team-social-links">
+                                <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
+                                <span aria-label="Portfolio"><i class="fas fa-briefcase"></i></span>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-            
-            <!-- Team Member 2 -->
-            <a href="portfolio/uv.html" class="team-member-button">
-                <div class="team-member-card">
-                    <img src="https://placehold.co/120x120/FFD700/000000?text=Member+2" alt="Team Member 2">
-                    <h3>Ujjwal Verma</h3>
-                    <p class="role">Graphics Designer & Digital Marketing Strategist</p>
-                    <p class="bio">Ujjwal excels in crafting data-driven marketing campaigns that significantly boost online visibility and engagement for our clients.</p>
-                    <div class="team-social-links">
-                        <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
-                        <span aria-label="Twitter"><i class="fab fa-twitter"></i></span>
-                    </div>
-                </div>
-            </a>
-            
-            <!-- Team Member 3 -->
-            <a href="portfolio/d.html" class="team-member-button">
-                <div class="team-member-card">
-                    <img src="https://placehold.co/120x120/800080/ffffff?text=Member+3" alt="Team Member 3">
-                    <h3>Dixit</h3>
-                    <p class="role">Content & Copywriting Lead</p>
-                    <p class="bio">Emily brings stories to life with compelling content and sharp copywriting, ensuring your brand message resonates with your audience.</p>
-                    <div class="team-social-links">
-                        <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
-                        <span aria-label="Portfolio"><i class="fas fa-briefcase"></i></span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-</section>
+            </div>
+        </section>
 
 
         <section id="contact">
@@ -1135,4 +1513,3 @@
     </script>
 </body>
 </html>
-

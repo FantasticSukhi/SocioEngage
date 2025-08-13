@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dixit - Freelance Business Ideas & Management Expert</title>
+    <meta name="description" content="Dixit's freelance portfolio showcasing expertise in business idea generation, strategic planning, project management, and operational efficiency.">
+    <meta name="keywords" content="Dixit, Freelance, Business Ideas, Management Expert, Strategic Planning, Project Management, Consulting, Operations, Efficiency, Entrepreneurship, Innovation">
+    <meta name="author" content="Dixit">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yourportfolio.com"> <meta property="og:title" content="Dixit - Freelance Business Ideas & Management Expert">
+    <meta property="og:description" content="Explore the freelance portfolio of Dixit, specializing in generating innovative business ideas and optimizing management strategies.">
+    <meta property="og:image" content="https://www.yourportfolio.com/preview.jpg"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.yourportfolio.com"> <meta property="twitter:title" content="Dixit - Freelance Business Ideas & Management Expert">
+    <meta property="twitter:description" content="Explore the freelance portfolio of Dixit, specializing in generating innovative business ideas and optimizing management strategies.">
+    <meta property="twitter:image" content="https://www.yourportfolio.com/preview.jpg"> <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #007bff; /* A vibrant professional blue */
+            --primary-gold: #FFD700; /* Gold accent */
+            --dark-bg: #121212; /* Dark background for depth */
+            --card-bg: #1e1e1e; /* Slightly lighter for cards */
+            --text-light: #e0e0e0;
+            --text-dark: #f5f5f5;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition-speed: 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin-top: 0;
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: var(--primary-gold);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: rgba(18, 18, 18, 0.95); /* Semi-transparent for subtle effect */
+            padding: 1rem 0;
+            position: sticky; /* Sticky nav */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: -0.05em;
+        }
+        .logo span {
+            color: var(--primary-blue);
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            padding-bottom: 0.3rem;
+            color: var(--text-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-speed);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* Important for particles */
+            padding: 2rem 0;
+            background-color: #000000; /* Ensure black background for space effect */
+        }
+
+        /* Particle container styling */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Behind the content */
+            background-color: #000000; /* Ensure background is black */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2; /* On top of particles */
+            max-width: 900px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: var(--text-dark);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color var(--transition-speed), transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--card-bg); /* Alternate background for sections */
+        }
+
+        section h2 {
+            font-size: 3.2rem;
+            margin-bottom: 4rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-gold);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #about .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        #about .profile-img {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 3px solid var(--primary-blue);
+        }
+        #about .profile-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px; /* Inner rounding */
+        }
+        #about p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        #about strong {
+            color: var(--primary-gold);
+        }
+
+        /* Skills Section */
+        #skills .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        #skills .skill-category {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #skills .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+        }
+        #skills .skill-category h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        #skills .skill-category h3 i {
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+        }
+        #skills .skill-category ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        #skills .skill-category li {
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        #skills .skill-category li::before {
+            content: '\f058'; /* Check circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            top: 3px;
+        }
+
+        /* Experience Section */
+        #experience .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 0 0 2rem; /* Left padding for line */
+        }
+        #experience .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            width: 4px;
+            background-color: var(--primary-blue);
+            height: 100%;
+            border-radius: 2px;
+        }
+        #experience .timeline-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        #experience .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        #experience .timeline-item::before { /* Circle on the line */
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--primary-gold);
+            left: -1.8rem; /* Position relative to .timeline-item */
+            top: 2rem;
+            border: 4px solid var(--dark-bg); /* "Cut out" effect */
+        }
+        #experience .timeline-item h3 {
+            color: var(--primary-gold);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        #experience .timeline-item p.duration {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #experience .timeline-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        #experience .timeline-item li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.95rem;
+        }
+        #experience .timeline-item li::before {
+            content: '\f0da'; /* Caret right icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-size: 0.8rem;
+            top: 5px;
+        }
+
+        /* Projects Section */
+        #projects .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        #projects .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #projects .project-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 25px rgba(0, 123, 255, 0.2);
+        }
+        #projects .project-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #projects .project-info {
+            padding: 1.5rem;
+        }
+        #projects .project-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+        #projects .project-info p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        #projects .project-info .tech-stack {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #projects .project-links {
+            margin-top: 1rem;
+        }
+        #projects .project-links a {
+            margin-right: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            white-space: nowrap; /* Prevent breaking */
+        }
+        #projects .project-links a i {
+            margin-right: 0.5rem;
+        }
+
+
+        /* Contact Section */
+        #contact .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #contact .contact-info-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        #contact .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+        #contact .contact-info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+        #contact .contact-info-card div {
+            flex-grow: 1;
+        }
+        #contact .contact-info-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.3rem;
+        }
+        #contact .contact-info-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        #contact .contact-info-card a {
+            font-size: 0.95rem;
+        }
+        #contact .social-links {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+        #contact .social-links a {
+            font-size: 2.8rem;
+            color: var(--text-light);
+            transition: color var(--transition-speed), transform 0.3s ease;
+        }
+        #contact .social-links a:hover {
+            color: var(--primary-gold);
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            color: #aaa;
+            text-align: center;
+            padding: 1.5rem 0; /* Reduced padding */
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 0; /* Removed margin-top */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                display: none; /* Hide nav links on smaller screens for now */
+            }
+            /* You'd typically add a hamburger menu here */
+            #hero h1 {
+                font-size: 3rem;
+            }
+            #hero p {
+                font-size: 1.2rem;
+            }
+            section {
+                padding: 4rem 0;
+            }
+            section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+            }
+            #about .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            #about .profile-img {
+                margin-bottom: 2rem;
+            }
+            #skills .skills-grid,
+            #projects .projects-grid,
+            #contact .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            #experience .timeline {
+                padding-left: 1rem; /* Adjust for smaller screens */
+            }
+            #experience .timeline::before {
+                left: 0.5rem;
+            }
+            #experience .timeline-item::before {
+                left: -1.3rem;
+            }
+            #projects .project-card img {
+                height: 180px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#hero" class="logo">Priyam<span> Dixit</span></a>
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Expertise</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Case Studies</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div id="particles-js"></div> 
+            <div class="hero-content">
+                <p>Hello, I'm</p>
+                <h1>Priyam Dixit</h1>
+                <p>Creative Logo & Graphics Designer</p>
+                <a href="#projects" class="btn">View My Portfolio <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+        
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            Hello! I'm Priyam Dixit, a creative logo and graphics designer with a passion for transforming brands through impactful visual identities. I specialize in crafting unique logos and design systems that capture a brand's essence while making a lasting impression.
+                        </p>
+                        <p>
+                            My design philosophy revolves around <strong>simplicity, memorability, and versatility</strong>. I believe a great logo should work across all platforms - from business cards to billboards - while maintaining its core identity. Each project begins with deep research into your brand's personality, values, and target audience.
+                        </p>
+                        <p>
+                            What sets my work apart:
+                            <ul class="design-approach">
+                                <li><i class="fas fa-magic"></i> <strong>Strategic Design Thinking</strong> - More than just aesthetics</li>
+                                <li><i class="fas fa-brush"></i> <strong>Custom Typography</strong> - Handcrafted lettering when needed</li>
+                                <li><i class="fas fa-shapes"></i> <strong>Adaptive Systems</strong> - Designs that scale across media</li>
+                                <li><i class="fas fa-palette"></i> <strong>Color Psychology</strong> - Purposeful palette selection</li>
+                            </ul>
+                        </p>
+                        <p>
+                            I've had the privilege of working with 50+ brands across industries including tech startups, restaurants, and creative agencies. My designs have helped clients increase brand recognition by up to 60% and establish cohesive visual identities.
+                        </p>
+                        <p>
+                            When not designing, I'm probably sketching in my notebook, studying design history, or experimenting with new illustration techniques. Let's create something remarkable together!
+                        </p>
+                    </div>
+                    <div class="profile-img">
+                        <img src="https://via.placeholder.com/300x300/007bff/ffffff?text=Priyam+Dixit" alt="Priyam Dixit - Logo & Graphic Designer">
+                        <div class="design-tools">
+                            <span><i class="fab fa-adobe"></i> Illustrator</span>
+                            <span><i class="fab fa-adobe"></i> Photoshop</span>
+                            <span><i class="fas fa-pen-fancy"></i> Procreate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <div class="container">
+                <h2>My Design Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><i class="fas fa-pencil-alt"></i> Logo Design</h3>
+                        <ul>
+                            <li>Brand Identity Creation</li>
+                            <li>Minimalist Logo Design</li>
+                            <li>Typography & Wordmarks</li>
+                            <li>Icon & Symbol Design</li>
+                            <li>Logo Animation Basics</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-palette"></i> Graphic Design</h3>
+                        <ul>
+                            <li>Print & Digital Graphics</li>
+                            <li>Social Media Templates</li>
+                            <li>Business Card Design</li>
+                            <li>Brochures & Flyers</li>
+                            <li>Packaging Design</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-magic"></i> Branding</h3>
+                        <ul>
+                            <li>Visual Identity Systems</li>
+                            <li>Color Theory Application</li>
+                            <li>Brand Style Guides</li>
+                            <li>Brand Consistency</li>
+                            <li>Rebranding Concepts</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-desktop"></i> Design Tools</h3>
+                        <ul>
+                            <li>Adobe Illustrator (Expert)</li>
+                            <li>Adobe Photoshop</li>
+                            <li>Canva Pro</li>
+                            <li>Figma (Basic)</li>
+                            <li>CorelDRAW</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-lightbulb"></i> Creative Process</h3>
+                        <ul>
+                            <li>Concept Development</li>
+                            <li>Mood Board Creation</li>
+                            <li>Sketching & Ideation</li>
+                            <li>Client Collaboration</li>
+                            <li>Design Iteration</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3><i class="fas fa-bullseye"></i> Specializations</h3>
+                        <ul>
+                            <li>Startup Branding</li>
+                            <li>Minimalist Aesthetics</li>
+                            <li>Typography Focus</li>
+                            <li>Vector Illustration</li>
+                            <li>Print-Ready Designs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <div class="container">
+                <h2>My Design Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Freelance Logo & Brand Identity Designer</h3>
+                        <p class="duration">November 2022 - Present | Self-Employed</p>
+                        <ul>
+                            <li>Designed 150+ custom logos for clients across 12 industries, with 95% client satisfaction rate</li>
+                            <li>Created complete brand identity packages including color palettes, typography systems, and style guides</li>
+                            <li>Specialized in minimalist logo designs that improved brand recognition by 40% on average</li>
+                            <li>Developed social media branding kits that increased client engagement by 35-50%</li>
+                            <li>Produced vector illustrations and icons for websites and mobile applications</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3>Graphic Design Intern | Creative Studio</h3>
+                        <p class="duration">June 2022 - October 2022 | Mumbai, India</p>
+                        <ul>
+                            <li>Assisted senior designers in creating marketing materials for 20+ client projects</li>
+                            <li>Developed skills in Adobe Creative Suite (Illustrator, Photoshop, InDesign)</li>
+                            <li>Created social media templates that increased content production efficiency by 30%</li>
+                            <li>Participated in client meetings and brainstorming sessions for brand development</li>
+                            <li>Helped redesign packaging for 3 local product brands</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <h3>Student Designer | Self-Initiated Projects</h3>
+                        <p class="duration">2020 - 2022</p>
+                        <ul>
+                            <li>Created logos and posters for college events and student organizations</li>
+                            <li>Developed personal brand identity projects to build portfolio</li>
+                            <li>Volunteered design work for local non-profit organizations</li>
+                            <li>Completed online courses in typography, color theory, and vector illustration</li>
+                            <li>Participated in design challenges to improve technical skills</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="container">
+                <h2>Key Case Studies & Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/007bff/ffffff?text=Logo+Design" alt="Logo Design Project">
+                        <div class="project-info">
+                            <h3>Brand Identity for Campus Startup</h3>
+                            <p>Created a complete logo and visual identity for a student-run business, helping them establish their first professional brand presence.</p>
+                            <p class="tech-stack">Expertise Utilized: Concept Sketching, Adobe Illustrator, Color Theory, Typography</p>
+                            <div class="project-links">
+                                <a href="campus-startup-case.html" target="_blank"><i class="fas fa-file-alt"></i> View Project</a>
+                                <a href="campus-startup-portfolio.pdf" target="_blank"><i class="fas fa-palette"></i> Portfolio</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/FFD700/000000?text=Social+Media+Graphics" alt="Social Media Design">
+                        <div class="project-info">
+                            <h3>Social Media Pack for Local Cafe</h3>
+                            <p>Designed 15+ promotional graphics and templates for a neighborhood cafe's Instagram, increasing their post engagement by 40%.</p>
+                            <p class="tech-stack">Expertise Utilized: Canva, Adobe Photoshop, Layout Design, Visual Storytelling</p>
+                            <div class="project-links">
+                                <a href="cafe-design-case.html" target="_blank"><i class="fas fa-file-alt"></i> View Samples</a>
+                                <a href="cafe-design-process.pdf" target="_blank"><i class="fas fa-images"></i> Before/After</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/800080/ffffff?text=Event+Posters" alt="Event Design">
+                        <div class="project-info">
+                            <h3>College Event Marketing Kit</h3>
+                            <p>Produced posters, tickets and digital banners for university festivals, with designs adopted as official templates for future events.</p>
+                            <p class="tech-stack">Expertise Utilized: Print Design, Composition, Visual Hierarchy, Brand Adaptation</p>
+                            <div class="project-links">
+                                <a href="event-design-case.html" target="_blank"><i class="fas fa-file-alt"></i> View Gallery</a>
+                                <a href="event-design-templates.zip" target="_blank"><i class="fas fa-download"></i> Templates</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <h2>Let's Innovate Together</h2>
+                <p style="margin-bottom: 3rem;">Ready to transform your ideas into success? Or looking to optimize your business operations? Reach out!</p>
+                <div class="contact-grid">
+                    <div class="contact-info-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Me</h3>
+                            <a href="mailto:dixit.email@example.com">Not on this time</a> </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Call Me</h3>
+                            <p><a href="tel:+91-8858565278">+91-8858565278</a></p> </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Delhi, India</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="YOUR_LINKEDIN_PROFILE" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="YOUR_BEHANCE_OR_PORTFOLIO_LINK" target="_blank" aria-label="Portfolio"><i class="fas fa-briefcase"></i></a> <a href="YOUR_TWITTER_PROFILE" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SocioEngange. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Update active class
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Function to set active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Adjust this value for when the active link changes, e.g., sectionHeight / 2 or 100 (pixels)
+                if (scrollY >= sectionTop - sectionHeight / 3) { 
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 150, // Number of particles
+                    "density": {
+                        "enable": true,
+                        "value_area": 800 // Area density
+                    }
+                },
+                "color": {
+                    "value": "#ffffff" // White particles
+                },
+                "shape": {
+                    "type": "circle", // Particles are circles
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5, // Particle opacity
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 2, // Particle size
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false, // No lines between particles
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 0.8, // Slow movement for a subtle effect
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble" // Particles subtly react on hover
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse" // Push particles away on click
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 4,
+                        "duration": 2,
+                        "opacity": 0.8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>

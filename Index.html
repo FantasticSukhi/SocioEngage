@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocioEngage - Empowering Your Business with Freelance Expertise</title>
+    <meta name="description" content="SocioEngage offers comprehensive freelance services including web development, digital marketing, content creation, and IT solutions to help businesses thrive.">
+    <meta name="keywords" content="SocioEngage, Freelance Services, Web Development, Digital Marketing, Content Creation, IT Solutions, Business Growth, Remote Services, Expert Freelancers, Agency">
+    <meta name="author" content="SocioEngage">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.socioengage.com"> <!-- REPLACE WITH YOUR ACTUAL BUSINESS URL -->
+    <meta property="og:title" content="SocioEngage - Empowering Your Business with Freelance Expertise">
+    <meta property="og:description" content="SocioEngage offers comprehensive freelance services including web development, digital marketing, content creation, and IT solutions to help businesses thrive.">
+    <meta property="og:image" content="https://www.socioengage.com/preview.jpg"> <!-- REPLACE WITH YOUR BUSINESS LOGO/PREVIEW IMAGE URL -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.socioengage.com"> <!-- REPLACE WITH YOUR ACTUAL BUSINESS URL -->
+    <meta property="twitter:title" content="SocioEngage - Empowering Your Business with Freelance Expertise">
+    <meta property="twitter:description" content="SocioEngage offers comprehensive freelance services including web development, digital marketing, content creation, and IT solutions to help businesses thrive.">
+    <meta property="twitter:image" content="https://www.socioengage.com/preview.jpg"> <!-- REPLACE WITH YOUR BUSINESS LOGO/PREVIEW IMAGE URL -->
+
+    <!-- Google Fonts - Inter for clean text, Poppins for headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #007bff; /* A vibrant professional blue */
+            --primary-gold: #FFD700; /* Gold accent */
+            --dark-bg: #121212; /* Dark background for depth */
+            --card-bg: #1e1e1e; /* Slightly lighter for cards */
+            --text-light: #e0e0e0;
+            --text-dark: #f5f5f5;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --transition-speed: 0.3s ease;
+            --max-width: 1200px;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.7;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            margin-top: 0;
+            line-height: 1.3;
+        }
+
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+
+        a:hover {
+            color: var(--primary-gold);
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header / Navigation */
+        header {
+            background-color: rgba(18, 18, 18, 0.95); /* Semi-transparent for subtle effect */
+            padding: 1rem 0;
+            position: sticky; /* Sticky nav */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: -0.05em;
+        }
+        .logo span {
+            color: var(--primary-blue);
+        }
+
+        .nav-links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            font-size: 1.05rem;
+            position: relative;
+            padding-bottom: 0.3rem;
+            color: var(--text-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-speed);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        
+        .nav-links a.active {
+            color: var(--primary-blue);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; /* Important for particles */
+            padding: 2rem 0;
+            background-color: #000000; /* Ensure black background for space effect */
+        }
+
+        /* Particle container styling */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Behind the content */
+            background-color: #000000; /* Ensure background is black */
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2; /* On top of particles */
+            max-width: 900px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+        }
+
+        .hero-content p {
+            font-size: 1.6rem;
+            color: var(--text-light);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: var(--text-dark);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color var(--transition-speed), transform 0.2s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+        }
+
+        section:nth-of-type(even) {
+            background-color: var(--card-bg); /* Alternate background for sections */
+        }
+
+        section h2 {
+            font-size: 3.2rem;
+            margin-bottom: 4rem;
+            color: var(--primary-blue);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-gold);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        #about .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #about .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        #about .profile-img {
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            border: 3px solid var(--primary-blue);
+        }
+        #about .profile-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px; /* Inner rounding */
+        }
+        #about p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        #about strong {
+            color: var(--primary-gold);
+        }
+
+        /* Services Section (formerly Skills) */
+        #services .skills-grid { /* Reused class name for grid layout */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        #services .service-category { /* Renamed class name for content cards */
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #services .service-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+        }
+        #services .service-category h3 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        #services .service-category h3 i {
+            font-size: 1.8rem;
+            color: var(--primary-gold);
+        }
+        #services .service-category ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 1rem;
+        }
+        #services .service-category li {
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            color: var(--text-light);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        #services .service-category li::before {
+            content: '\f058'; /* Check circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            top: 3px;
+        }
+
+        /* Experience Section (Our Journey) */
+        #our-journey .timeline { /* Renamed ID for context */
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 0 0 2rem; /* Left padding for line */
+        }
+        #our-journey .timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            width: 4px;
+            background-color: var(--primary-blue);
+            height: 100%;
+            border-radius: 2px;
+        }
+        #our-journey .timeline-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+        #our-journey .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        #our-journey .timeline-item::before { /* Circle on the line */
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--primary-gold);
+            left: -1.8rem; /* Position relative to .timeline-item */
+            top: 2rem;
+            border: 4px solid var(--dark-bg); /* "Cut out" effect */
+        }
+        #our-journey .timeline-item h3 {
+            color: var(--primary-gold);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        #our-journey .timeline-item p.duration {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #our-journey .timeline-item ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        #our-journey .timeline-item li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.95rem;
+        }
+        #our-journey .timeline-item li::before {
+            content: '\f0da'; /* Caret right icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary-gold);
+            font-size: 0.8rem;
+            top: 5px;
+        }
+
+        /* Projects Section (Our Work) */
+        #our-work .projects-grid { /* Renamed ID for context */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        #our-work .project-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #our-work .project-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 25px rgba(0, 123, 255, 0.2);
+        }
+        #our-work .project-card img {
+            width: 100%;
+            height: 200px; /* Fixed height for consistency */
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #our-work .project-info {
+            padding: 1.5rem;
+        }
+        #our-work .project-info h3 {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+        #our-work .project-info p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+        #our-work .project-info .tech-stack {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        #our-work .project-links {
+            margin-top: 1rem;
+        }
+        #our-work .project-links a {
+            margin-right: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            white-space: nowrap; /* Prevent breaking */
+        }
+        #our-work .project-links a i {
+            margin-right: 0.5rem;
+        }
+
+        /* Our Team Section */
+		.team-member-button {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
+		
+		.team-member-button:hover .team-member-card {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    
+        .team-member-card {
+            transition: all 0.3s ease;
+        }
+    
+        #our-team {
+            background-color: var(--dark-bg); /* Or var(--card-bg) for alternating */
+        }
+		
+        #our-team .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        #our-team .team-member-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        #our-team .team-member-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 12px 25px rgba(0, 123, 255, 0.2);
+        }
+        #our-team .team-member-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary-blue);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        #our-team .team-member-card h3 {
+            color: var(--primary-gold);
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+        #our-team .team-member-card p.role {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        #our-team .team-member-card p.bio {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+        #our-team .team-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        #our-team .team-social-links a {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            transition: color var(--transition-speed);
+        }
+        #our-team .team-social-links a:hover {
+            color: var(--primary-gold);
+        }
+
+
+        /* Contact Section */
+        #contact .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        #contact .contact-info-card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        #contact .contact-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+        }
+        #contact .contact-info-card i {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+        #contact .contact-info-card div {
+            flex-grow: 1;
+        }
+        #contact .contact-info-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.3rem;
+        }
+        #contact .contact-info-card p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+        #contact .contact-info-card a {
+            font-size: 0.95rem;
+        }
+        #contact .social-links {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+        #contact .social-links a {
+            font-size: 2.8rem;
+            color: var(--text-light);
+            transition: color var(--transition-speed), transform 0.3s ease;
+        }
+        #contact .social-links a:hover {
+            color: var(--primary-gold);
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            color: #aaa;
+            text-align: center;
+            padding: 1.5rem 0; /* Reduced padding */
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 0; /* Removed margin-top */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 1.5rem;
+            }
+            .nav-links {
+                display: none; /* Hide nav links on smaller screens for now */
+            }
+            /* You'd typically add a hamburger menu here */
+            #hero h1 {
+                font-size: 3rem;
+            }
+            #hero p {
+                font-size: 1.2rem;
+            }
+            section {
+                padding: 4rem 0;
+            }
+            section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 3rem;
+            }
+            #about .about-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            #about .profile-img {
+                margin-bottom: 2rem;
+            }
+            #services .skills-grid, /* Update for responsive grid */
+            #our-work .projects-grid, /* Update for responsive grid */
+            #our-team .team-grid, /* Update for responsive grid */
+            #contact .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            #our-journey .timeline { /* Update for responsive timeline */
+                padding-left: 1rem; /* Adjust for smaller screens */
+            }
+            #our-journey .timeline::before {
+                left: 0.5rem;
+            }
+            #our-journey .timeline-item::before {
+                left: -1.3rem;
+            }
+            #our-work .project-card img {
+                height: 180px;
+            }
+            #our-team .team-member-card {
+                padding: 1.5rem;
+            }
+            #our-team .team-member-card img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#hero" class="logo">Socio<span>Engage</span></a> <!-- Business Name as Logo -->
+                <ul class="nav-links">
+                    <li><a href="#hero" class="active">Home</a></li>
+                    <li><a href="#about">About Us</a></li> <!-- Renamed to About Us -->
+                    <li><a href="#services">Services</a></li> <!-- Renamed to Services -->
+                    <li><a href="#our-journey">Our Journey</a></li> <!-- Renamed to Our Journey -->
+                    <li><a href="#our-work">Our Work</a></li> <!-- Renamed to Our Work -->
+                    <li><a href="#our-team">Our Team</a></li> <!-- NEW: Our Team Nav Link -->
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div id="particles-js"></div> 
+            <div class="hero-content">
+                <p>Welcome to</p>
+                <h1>SocioEngage</h1> <!-- Business Name in Hero -->
+                <p>Empowering Your Business with Expert Freelance Services</p> <!-- Business Tagline -->
+                <a href="#services" class="btn">Explore Our Services <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <h2>About SocioEngage</h2> <!-- About Us Section -->
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>
+                            **SocioEngage** is a dedicated freelancing services provider committed to empowering businesses of all sizes with top-tier talent and tailored solutions. We understand the dynamic needs of today's market and offer flexible, efficient, and results-driven expertise to help you achieve your goals.
+                        </p>
+                        <p>
+                            Our mission is to bridge the gap between businesses seeking specialized skills and talented freelancers ready to deliver exceptional work. We pride ourselves on **client-centric approaches, transparent communication, and a commitment to quality** that ensures your projects are not just completed, but excel.
+                        </p>
+                        <p>
+                            With a team of vetted professionals, we cover a wide spectrum of services designed to enhance your online presence, streamline your operations, and drive growth. Partner with SocioEngage to leverage freelance power and elevate your business to new heights.
+                        </p>
+                    </div>
+                    <div class="profile-img">
+                        <!-- Placeholder for a business-related image, e.g., team collaboration, abstract business graphic -->
+                        <img src="https://via.placeholder.com/300x300/007bff/ffffff?text=SocioEngage+Team" alt="SocioEngage Business Image"> 
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services"> <!-- Renamed from #skills -->
+            <div class="container">
+                <h2>Our Core Freelance Services</h2> <!-- Renamed Section Title -->
+                <div class="skills-grid"> <!-- Reusing .skills-grid for structure -->
+                    <div class="service-category"> <!-- Renamed from .skill-category -->
+                        <h3><i class="fas fa-laptop-code"></i> Web Development</h3>
+                        <ul>
+                            <li>Custom Website Design & Development</li>
+                            <li>E-commerce Solutions (Shopify, WooCommerce)</li>
+                            <li>Frontend & Backend Development (React, Node.js, Python/Django)</li>
+                            <li>Website Maintenance & Support</li>
+                            <li>Responsive Design & Optimization</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3><i class="fas fa-bullhorn"></i> Digital Marketing</h3>
+                        <ul>
+                            <li>Search Engine Optimization (SEO)</li>
+                            <li>Social Media Marketing (SMM)</li>
+                            <li>Pay-Per-Click (PPC) Advertising</li>
+                            <li>Email Marketing Campaigns</li>
+                            <li>Content Marketing Strategy</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3><i class="fas fa-pen-fancy"></i> Content Creation</h3>
+                        <ul>
+                            <li>Blog Post & Article Writing</li>
+                            <li>Website Copywriting</li>
+                            <li>Video Scripting & Production</li>
+                            <li>Graphic Design & Branding</li>
+                            <li>Proofreading & Editing</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3><i class="fas fa-network-wired"></i> IT & Technical Support</h3>
+                        <ul>
+                            <li>Network Setup & Troubleshooting (Basic)</li>
+                            <li>Software Installation & Configuration</li>
+                            <li>System Administration Assistance</li>
+                            <li>Data Backup & Recovery Solutions</li>
+                            <li>Remote Support Services</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3><i class="fas fa-chart-pie"></i> Business Consulting</h3>
+                        <ul>
+                            <li>Business Strategy & Planning</li>
+                            <li>Market Research & Analysis</li>
+                            <li>Operational Efficiency Consulting</li>
+                            <li>Project Management Support</li>
+                            <li>Startup Advisory</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3><i class="fas fa-assistive-listening-systems"></i> Virtual Assistance</h3>
+                        <ul>
+                            <li>Administrative Support</li>
+                            <li>Scheduling & Calendar Management</li>
+                            <li>Email Management & Correspondence</li>
+                            <li>Data Entry & Organization</li>
+                            <li>Research Tasks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="our-journey"> <!-- Renamed from #experience -->
+            <div class="container">
+                <h2>Our Journey to Excellence</h2> <!-- Renamed Section Title -->
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Foundation & First Clients</h3>
+                        <p class="duration">Early 2023 - Mid 2023</p> <!-- Example timeline -->
+                        <ul>
+                            <li>SocioEngage was founded with a vision to provide accessible, high-quality freelance services.</li>
+                            <li>Secured our first set of diverse clients, delivering foundational web and content projects.</li>
+                            <li>Established core processes for client onboarding and project management.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Expanding Expertise & Team Growth</h3>
+                        <p class="duration">Mid 2023 - Present</p>
+                        <ul>
+                            <li>Expanded our service offerings to include digital marketing and IT solutions based on client demand.</li>
+                            <li>Grew our network of vetted freelance professionals, ensuring diverse skill sets and capacity.</li>
+                            <li>Implemented advanced project tracking and quality assurance protocols for consistent client satisfaction.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Commitment to Future & Innovation</h3>
+                        <p class="duration">Ongoing</p>
+                        <ul>
+                            <li>Continuously explore emerging technologies and best practices to enhance our service delivery.</li>
+                            <li>Invest in professional development for our freelance partners to stay ahead in the industry.</li>
+                            <li>Dedicated to building long-term partnerships and contributing to our clients' sustained success.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="our-work"> <!-- Renamed from #projects -->
+            <div class="container">
+                <h2>Our Recent Work & Case Studies</h2> <!-- Renamed Section Title -->
+                <div class="projects-grid"> <!-- Reusing .projects-grid for structure -->
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/007bff/ffffff?text=Website+Development" alt="E-commerce Website Project">
+                        <div class="project-info">
+                            <h3>E-commerce Platform for Retail Startup</h3>
+                            <p>Designed and developed a responsive e-commerce website, integrating secure payment gateways and a streamlined user experience, resulting in a 25% increase in online sales.</p>
+                            <p class="tech-stack">**Services:** Web Development, UI/UX Design, E-commerce Integration</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-info-circle"></i> Case Study</a>
+                                <a href="YOUR_LIVE_DEMO_LINK" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/FFD700/000000?text=Digital+Marketing" alt="Social Media Campaign">
+                        <div class="project-info">
+                            <h3>Comprehensive Social Media Campaign for NGO</h3>
+                            <p>Developed and executed a multi-platform social media strategy for a non-profit, increasing their online engagement by 40% and volunteer sign-ups by 20% in three months.</p>
+                            <p class="tech-stack">**Services:** Digital Marketing, Content Strategy, Social Media Management</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-info-circle"></i> Case Study</a>
+                                <a href="YOUR_REPORT_LINK" target="_blank"><i class="fas fa-chart-bar"></i> View Report</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/800080/ffffff?text=Content+Creation" alt="Blog Content Strategy">
+                        <div class="project-info">
+                            <h3>Strategic Blog Content for SaaS Company</h3>
+                            <p>Created a series of SEO-optimized blog articles and pillar content for a SaaS client, driving organic traffic by 30% and establishing them as an industry thought leader.</p>
+                            <p class="tech-stack">**Services:** Content Creation, SEO, Copywriting, Content Strategy</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-info-circle"></i> Case Study</a>
+                                <a href="YOUR_PORTFOLIO_LINK" target="_blank"><i class="fas fa-file-alt"></i> View Portfolio</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <img src="https://via.placeholder.com/400x200/28a745/ffffff?text=IT+Solutions" alt="IT Infrastructure Optimization">
+                        <div class="project-info">
+                            <h3>IT Infrastructure Optimization for Small Business</h3>
+                            <p>Provided IT consulting and implemented solutions to enhance network reliability and security for a local business, reducing downtime and improving overall system performance.</p>
+                            <p class="tech-stack">**Services:** IT Consulting, Network Support, Cybersecurity Basics</p>
+                            <div class="project-links">
+                                <a href="YOUR_CASE_STUDY_LINK" target="_blank"><i class="fas fa-info-circle"></i> Case Study</a>
+                                <a href="YOUR_OUTCOME_REPORT_LINK" target="_blank"><i class="fas fa-check-circle"></i> Project Outcomes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="our-team">
+    <div class="container">
+        <h2>Meet Our Experts</h2>
+        <p style="margin-bottom: 3rem;">Behind every successful project at SocioEngage is a team of passionate and skilled professionals dedicated to delivering excellence.</p>
+        <div class="team-grid">
+            <!-- Team Member 1 -->
+            <a href="F:/Mamba Returns/SocioEngage/sk.html" class="team-member-button">
+                <div class="team-member-card">
+                    <img src="https://placehold.co/120x120/007bff/ffffff?text=Member+1" alt="Team Member 1">
+                    <h3>Sukhpal Kherera</h3>
+                    <p class="role">Web & Python Developer</p>
+                    <p class="bio">With 8+ years experience, Sukhpal specializes in scalable backend architectures and intuitive frontend and backend experiences. She leads our development projects with precision.</p>
+                    <div class="team-social-links">
+                        <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
+                        <span aria-label="GitHub"><i class="fab fa-github"></i></span>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Team Member 2 -->
+            <a href="F:/Mamba Returns/SocioEngage/uv.html" class="team-member-button">
+                <div class="team-member-card">
+                    <img src="https://placehold.co/120x120/FFD700/000000?text=Member+2" alt="Team Member 2">
+                    <h3>Ujjwal Verma</h3>
+                    <p class="role">Graphics Designer & Digital Marketing Strategist</p>
+                    <p class="bio">Ujjwal excels in crafting data-driven marketing campaigns that significantly boost online visibility and engagement for our clients.</p>
+                    <div class="team-social-links">
+                        <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
+                        <span aria-label="Twitter"><i class="fab fa-twitter"></i></span>
+                    </div>
+                </div>
+            </a>
+            
+            <!-- Team Member 3 -->
+            <a href="F:/Mamba Returns/SocioEngage/d.html" class="team-member-button">
+                <div class="team-member-card">
+                    <img src="https://placehold.co/120x120/800080/ffffff?text=Member+3" alt="Team Member 3">
+                    <h3>Dixit</h3>
+                    <p class="role">Content & Copywriting Lead</p>
+                    <p class="bio">Emily brings stories to life with compelling content and sharp copywriting, ensuring your brand message resonates with your audience.</p>
+                    <div class="team-social-links">
+                        <span aria-label="desktop"><i class="fab fa-desktop"></i></span>
+                        <span aria-label="Portfolio"><i class="fas fa-briefcase"></i></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+        <section id="contact">
+            <div class="container">
+                <h2>Let's Grow Together</h2> <!-- Updated Contact Section Title -->
+                <p style="margin-bottom: 3rem;">Ready to discuss your business needs? We're excited to partner with you and bring your projects to life. Reach out today!</p>
+                <div class="contact-grid">
+                    <div class="contact-info-card">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <a href="mailto:info@socioengage.com">info@socioengage.com</a> <!-- REPLACE WITH BUSINESS EMAIL -->
+                        </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p><a href="tel:+91-6280518579">+91-6280518579</a></p> <!-- REPLACE WITH BUSINESS PHONE -->
+                        </div>
+                    </div>
+                    <div class="contact-info-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Our Location</h3>
+                            <p>Chandigarh, India</p> <!-- REPLACE WITH BUSINESS LOCATION -->
+                        </div>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="YOUR_LINKEDIN_BUSINESS_PAGE" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a> <!-- REPLACE WITH BUSINESS LINKEDIN -->
+                    <a href="YOUR_FACEBOOK_PAGE" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a> <!-- REPLACE WITH BUSINESS FACEBOOK -->
+                    <a href="YOUR_INSTAGRAM_PAGE" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a> <!-- REPLACE WITH BUSINESS INSTAGRAM -->
+                    <a href="YOUR_TWITTER_PAGE" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a> <!-- REPLACE WITH BUSINESS TWITTER -->
+                    <!-- Add more relevant business social media links -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 SocioEngage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- particles.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Update active class
+                document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Function to set active nav link on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                // Adjust this value for when the active link changes, e.g., sectionHeight / 2 or 100 (pixels)
+                if (scrollY >= sectionTop - sectionHeight / 3) { 
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Correctly identify the link based on section ID
+                if (link.getAttribute('href').includes(current.replace('-section', ''))) { // Adjust for custom section IDs
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 150, // Number of particles
+                    "density": {
+                        "enable": true,
+                        "value_area": 800 // Area density
+                    }
+                },
+                "color": {
+                    "value": "#ffffff" // White particles
+                },
+                "shape": {
+                    "type": "circle", // Particles are circles
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5, // Particle opacity
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 2, // Particle size
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": false, // No lines between particles
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 0.8, // Slow movement for a subtle effect
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "bubble" // Particles subtly react on hover
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "repulse" // Push particles away on click
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 400,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 200,
+                        "size": 4,
+                        "duration": 2,
+                        "opacity": 0.8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
